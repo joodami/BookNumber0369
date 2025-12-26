@@ -66,3 +66,9 @@ body {
   min-height: 50px; /* สูงพอเหมาะ */
 }
 
+#userform .card-body {
+  gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
