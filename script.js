@@ -1,12 +1,16 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 function post(data){
-  return fetch(GAS_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify(data)
+  const formData = new URLSearchParams();
+  for (let key in data) {
+    formData.append(key, data[key]);
+  }
+
+  return fetch(GAS_URL, {
+    method: "POST",
+    body: formData
   })
-  .then(r => r.json())
+  .then(res => res.json())
   .catch(err => {
     alert("เชื่อมต่อระบบไม่ได้");
     console.error(err);
