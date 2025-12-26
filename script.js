@@ -1,5 +1,16 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
+/* =========================
+   DOM Elements (ส่วนที่เพิ่ม)
+========================= */
+const modalLoadingEl = document.getElementById("modal-loading");
+const modalSuccessEl = document.getElementById("modal-success");
+const modalErrorEl   = document.getElementById("modal-error");
+const showBooknoEl   = document.getElementById("show-bookno");
+
+/* =========================
+   Helper
+========================= */
 function post(data){
   return fetch(GAS_URL, {
     method: "POST",
@@ -7,6 +18,9 @@ function post(data){
   }).then(r => r.json());
 }
 
+/* =========================
+   Login
+========================= */
 function login(){
   const pass = password.value.trim();
   if(!pass) return alert("กรุณากรอกรหัส");
@@ -22,6 +36,9 @@ function login(){
   });
 }
 
+/* =========================
+   Submit Data
+========================= */
 function submitData(){
   const modal = new bootstrap.Modal(resultModal);
   modal.show();
@@ -44,30 +61,42 @@ function submitData(){
   });
 }
 
+/* =========================
+   Modal Control (แก้ตรงนี้)
+========================= */
 function modalLoading(){
-  modal-loading.classList.remove("d-none");
-  modal-success.classList.add("d-none");
-  modal-error.classList.add("d-none");
+  modalLoadingEl.classList.remove("d-none");
+  modalSuccessEl.classList.add("d-none");
+  modalErrorEl.classList.add("d-none");
 }
 
 function showSuccess(bookno){
-  modal-loading.classList.add("d-none");
-  modal-success.classList.remove("d-none");
-  show-bookno.innerText = `เลขบันทึกข้อความ = ${bookno}`;
+  modalLoadingEl.classList.add("d-none");
+  modalSuccessEl.classList.remove("d-none");
+  showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`;
 }
 
 function showError(){
-  modal-loading.classList.add("d-none");
-  modal-error.classList.remove("d-none");
+  modalLoadingEl.classList.add("d-none");
+  modalErrorEl.classList.remove("d-none");
 }
 
+/* =========================
+   Reset
+========================= */
 function resetToLogin(){
-  birthday.value = detail.value = department.value = "";
-  user.value = password.value = "";
+  birthday.value = "";
+  detail.value = "";
+  department.value = "";
+  user.value = "";
+  password.value = "";
   userform.classList.add("invisible");
   post({action:"deleteOnline"});
 }
 
+/* =========================
+   Dashboard
+========================= */
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
     dash-total.innerText = d.total;
@@ -76,6 +105,9 @@ function loadDashboard(){
   });
 }
 
+/* =========================
+   Init
+========================= */
 document.addEventListener("DOMContentLoaded", ()=>{
   loadDashboard();
   setInterval(loadDashboard,30000);
@@ -84,7 +116,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   btn-submit.onclick = submitData;
 
   password.addEventListener("keydown",e=>{
-    if(e.key==="Enter") login();
+    if(e.key === "Enter") login();
   });
 
   setInterval(()=>post({action:"deleteOnline"}),5*60*1000);
