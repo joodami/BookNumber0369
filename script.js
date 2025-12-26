@@ -13,7 +13,10 @@ function post(data){
 function login(){
   const passInput = document.getElementById("password");
   const pass = passInput.value.trim();
-  if(!pass){ alert("กรุณากรอกรหัสผ่าน"); return; }
+  if(!pass){
+    alert("กรุณากรอกรหัสผ่าน");
+    return;
+  }
 
   post({action:"login", password: pass}).then(res => {
     if(!res) { alert("ไม่สามารถเชื่อมต่อระบบได้"); return; }
@@ -21,7 +24,9 @@ function login(){
       document.getElementById("user").value = res[0][1];
       document.getElementById("userform").classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
-    } else { alert("ข้อมูลไม่ถูกต้อง"); }
+    } else {
+      alert("ข้อมูลไม่ถูกต้อง");
+    }
   });
 }
 
@@ -70,17 +75,25 @@ function loadDashboard(){
   });
 }
 
+// ------------------ Auto Logout / Clear Online ------------------
+function autoClearOnline(){
+  post({action:"deleteOnline"});
+}
+
 // ------------------ DOM Ready ------------------
 document.addEventListener("DOMContentLoaded", () => {
   loadDashboard();
-  setInterval(loadDashboard, 30000);
+  setInterval(loadDashboard, 30000); // รีเฟรช Dashboard ทุก 30 วิ
 
   // กด Enter login
   document.getElementById("password").addEventListener("keydown", e => {
     if(e.key === "Enter") login();
   });
 
-  // ปุ่ม login & submit
+  // ปุ่ม login
   document.getElementById("btn-login").addEventListener("click", login);
   document.getElementById("btn-submit").addEventListener("click", submitData);
+
+  // Auto clear online ทุก 5 นาที
+  setInterval(autoClearOnline, 5 * 60 * 1000);
 });
