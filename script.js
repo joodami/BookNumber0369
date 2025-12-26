@@ -132,6 +132,25 @@ function loadDashboard(){
 }
 
 /* =========================
+   Session Checker
+========================= */
+function checkSession(){
+  post({action:"checkOnline"}).then(res=>{
+    if(res.onlineCount === 0 && !userformEl.classList.contains("invisible")){
+      const modal = new bootstrap.Modal(resultModalEl);
+      modal.show();
+
+      modalLoadingEl.classList.add("d-none");
+      modalSuccessEl.classList.add("d-none");
+      modalErrorEl.classList.remove("d-none");
+      modalErrorEl.querySelector("h5").innerText = "ครบ 5 นาทีแล้ว กรุณาเข้าสู่ระบบใหม่";
+
+      resetToLogin();
+    }
+  });
+}
+
+/* =========================
    Init
 ========================= */
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -145,5 +164,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     if(e.key === "Enter") login();
   });
 
+  // เคลีย online ทุก 5 นาที (ฝั่ง GAS)
   setInterval(()=>post({action:"deleteOnline"}),5*60*1000);
+
+  // ตรวจสอบ session ฝั่งเว็บทุก 5 วินาที
+  setInterval(checkSession,5000);
 });
