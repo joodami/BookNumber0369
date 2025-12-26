@@ -50,7 +50,7 @@ function submitData(){
     document.getElementById("modal-loading").classList.add("d-none");
     document.getElementById("modal-success").classList.remove("d-none");
     document.getElementById("show-bookno").innerText =
-      `(เลขบันทึกข้อความ = ${res.bookno})`;
+      `เลขบันทึกข้อความ = ${res.bookno}`;
 
     // เคลียร์ฟอร์มและผู้ใช้
     birthday.value = "";
