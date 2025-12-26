@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <title>ระบบขอเลขหนังสือราชการออนไลน์</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container text-center">
+
+    <img class="banner"
+      src="https://firebasestorage.googleapis.com/v0/b/banner-web-app.appspot.com/o/banner%20web%20app.jpg?alt=media">
+
+    <div class="card">
+      <div class="card-header">ลงชื่อเข้าใช้ระบบ</div>
+      <div class="card-body">
+        <input type="password" id="password" class="form-control mb-3" placeholder="เบอร์โทร">
+        <button class="btn btn-primary w-100" onclick="login()">เข้าสู่ระบบ</button>
+      </div>
+    </div>
+
+    <div id="userform" class="card invisible mt-4">
+      <div class="card-header">บันทึกข้อมูล</div>
+      <div class="card-body text-start">
+
+        <input type="date" id="birthday" class="form-control mb-2">
+        <textarea id="detail" class="form-control mb-2" placeholder="เรื่อง"></textarea>
+        <textarea id="department" class="form-control mb-2" placeholder="ผู้ปฏิบัติ"></textarea>
+        <input id="user" class="form-control mb-2" disabled>
+
+        <button class="btn btn-success w-100" onclick="submitData()">รับเลขบันทึก</button>
+      </div>
+    </div>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
