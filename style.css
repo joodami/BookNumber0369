@@ -1,6 +1,5 @@
-* { font-family: 'Prompt', sans-serif; }
-
 body {
+  font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 2rem;
 }
@@ -9,43 +8,58 @@ body {
   max-width: 800px;
   width: 100%;
   border-radius: 12px;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card {
   max-width: 800px;
   margin: auto;
   border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-.invisible {
-  display: none;
+.card-header {
+  background-color: #f8f9fa;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: none;
 }
 
-#userform .form-control,
-#userform button {
-  margin-bottom: 1rem;
+.card-body input,
+.card-body textarea {
+  border-radius: 0.5rem;
 }
 
-#userform textarea {
-  min-height: 50px;
+.mb-3 {
+  margin-bottom: 1.5rem !important;
 }
 
-#userform .card-body {
-  gap: 0.8rem;
-  display: flex;
-  flex-direction: column;
+.dashboard-wrap {
+  max-width: 900px;
+  margin: auto 0 2rem 0;
 }
 
-/* Mobile First */
+/* Modal */
+.modal-content {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.modal-content.showing {
+  transform: scale(1.05);
+}
+
+/* Mobile */
 @media (max-width: 576px) {
-  body { padding: 0.5rem; }
-
-  .card { border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+  body { padding: 1rem; }
+  .card { border-radius: 10px; }
   .card-header { font-size: 1rem; text-align: center; }
   textarea, input { font-size: 0.95rem; }
   button { font-size: 1rem; }
   .banner { border-radius: 8px; }
 }
-
-.dashboard-wrap { max-width: 900px; margin: auto; }
