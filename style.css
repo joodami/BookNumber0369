@@ -108,3 +108,21 @@ body {
     gap: 1rem;
   }
 }
+
+/* Modal ขนาดกลางพอดี แสดงข้อความครบ */
+.modal-dialog.modal-md {
+  max-width: 500px; /* กำหนดขนาดกลาง */
+  width: 90%;
+}
+
+.modal-body p, 
+.modal-body h5 {
+  word-wrap: break-word;
+  white-space: normal; /* ให้ข้อความยาวไม่ตัดบรรทัด */
+}
+
+#show-bookno {
+  font-size: 1.25rem;
+  white-space: normal; /* แสดงเลขบันทึกข้อความบรรทัดเดียวแต่ถ้ายาวเกินพอดีจะแตกบรรทัด */
+  word-break: break-word;
+}
