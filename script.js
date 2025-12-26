@@ -5,15 +5,25 @@ function post(data){
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body:JSON.stringify(data)
-  }).then(r=>r.json());
+  })
+  .then(r => r.json())
+  .catch(err => {
+    alert("เชื่อมต่อระบบไม่ได้");
+    console.error(err);
+  });
 }
 
+
 function login(){
-  const pass = document.getElementById("password").value;
+  const pass = document.getElementById("password").value.trim();
+  if(!pass){
+    alert("กรุณากรอกรหัสผ่าน");
+    return;
+  }
 
   post({action:"login",password:pass})
     .then(res=>{
-      if(res.length){
+      if(res && res.length){
         document.getElementById("user").value = res[0][1];
         document.getElementById("userform").classList.remove("invisible");
         post({action:"addOnline",name:res[0][1]});
@@ -22,6 +32,7 @@ function login(){
       }
     });
 }
+
 
 function submitData(){
   post({action:"getYear"}).then(year=>{
