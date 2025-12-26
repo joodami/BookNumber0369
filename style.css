@@ -7,10 +7,16 @@ body {
   align-items: center;
 }
 
-/* Banner ขยายเต็มหน้าจอแต่มี max-width */
+/* กำหนด max-width ให้เท่ากันสำหรับ Banner, Dashboard, Form */
+.max-width-container {
+  width: 100%;
+  max-width: 1200px; /* ปรับขนาดสูงสุดตามต้องการ */
+  margin: 0 auto;
+}
+
+/* Banner */
 .banner {
   width: 100%;
-  max-width: 1200px;
   border-radius: 12px;
   margin-bottom: 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -19,7 +25,6 @@ body {
 /* Dashboard */
 .dashboard-wrap {
   width: 100%;
-  max-width: 1200px;
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
@@ -29,7 +34,7 @@ body {
   width: 100%;
 }
 
-/* Card ทุกอันขยายตามคอลัมน์ */
+/* Card ทุกอัน */
 .card {
   width: 100%;
   margin-bottom: 1rem;
@@ -60,7 +65,6 @@ body {
 /* User form */
 #userform {
   width: 100%;
-  max-width: 600px;
 }
 
 /* Modal */
