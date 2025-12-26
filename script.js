@@ -1,12 +1,16 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 /* =========================
-   DOM Elements (ส่วนที่เพิ่ม)
+   DOM Elements
 ========================= */
 const modalLoadingEl = document.getElementById("modal-loading");
 const modalSuccessEl = document.getElementById("modal-success");
 const modalErrorEl   = document.getElementById("modal-error");
 const showBooknoEl   = document.getElementById("show-bookno");
+
+const dashTotalEl  = document.getElementById("dash-total");
+const dashTodayEl  = document.getElementById("dash-today");
+const dashOnlineEl = document.getElementById("dash-online");
 
 /* =========================
    Helper
@@ -62,7 +66,7 @@ function submitData(){
 }
 
 /* =========================
-   Modal Control (แก้ตรงนี้)
+   Modal Control
 ========================= */
 function modalLoading(){
   modalLoadingEl.classList.remove("d-none");
@@ -99,9 +103,9 @@ function resetToLogin(){
 ========================= */
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
-    dash-total.innerText = d.total;
-    dash-today.innerText = d.today;
-    dash-online.innerText = d.online;
+    dashTotalEl.innerText  = d.total;
+    dashTodayEl.innerText  = d.today;
+    dashOnlineEl.innerText = d.online;
   });
 }
 
