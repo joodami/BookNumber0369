@@ -22,48 +22,13 @@ body {
   display: none;
 }
 
-/* ------------------ Mobile First ------------------ */
-@media (max-width: 576px) {
-
-  body {
-    padding: 0.5rem;
-  }
-
-  .card {
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
-  }
-
-  .card-header {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  textarea, input {
-    font-size: 0.95rem;
-  }
-
-  button {
-    font-size: 1rem;
-  }
-
-  .banner {
-    border-radius: 8px;
-  }
-}
-
-.dashboard-wrap {
-  max-width: 900px;
-  margin: auto;
-}
-
 #userform .form-control,
 #userform button {
-  margin-bottom: 1rem; /* ระยะห่างระหว่างหัวข้อ */
+  margin-bottom: 1rem;
 }
 
 #userform textarea {
-  min-height: 50px; /* สูงพอเหมาะ */
+  min-height: 50px;
 }
 
 #userform .card-body {
@@ -72,3 +37,15 @@ body {
   flex-direction: column;
 }
 
+/* Mobile First */
+@media (max-width: 576px) {
+  body { padding: 0.5rem; }
+
+  .card { border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+  .card-header { font-size: 1rem; text-align: center; }
+  textarea, input { font-size: 0.95rem; }
+  button { font-size: 1rem; }
+  .banner { border-radius: 8px; }
+}
+
+.dashboard-wrap { max-width: 900px; margin: auto; }
