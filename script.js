@@ -3,16 +3,16 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_n
 /* =========================
    DOM Elements (ทั้งหมด)
 ========================= */
-const passwordEl   = document.getElementById("password");
-const userEl       = document.getElementById("user");
-const userformEl   = document.getElementById("userform");
+const passwordEl    = document.getElementById("password");
+const userEl        = document.getElementById("user");
+const userformEl    = document.getElementById("userform");
 
-const birthdayEl   = document.getElementById("birthday");
-const detailEl     = document.getElementById("detail");
-const departmentEl= document.getElementById("department");
+const birthdayEl    = document.getElementById("birthday");
+const detailEl      = document.getElementById("detail");
+const departmentEl  = document.getElementById("department");
 
-const btnLoginEl   = document.getElementById("btn-login");
-const btnSubmitEl  = document.getElementById("btn-submit");
+const btnLoginEl    = document.getElementById("btn-login");
+const btnSubmitEl   = document.getElementById("btn-submit");
 
 const resultModalEl = document.getElementById("resultModal");
 
@@ -21,9 +21,14 @@ const modalSuccessEl = document.getElementById("modal-success");
 const modalErrorEl   = document.getElementById("modal-error");
 const showBooknoEl   = document.getElementById("show-bookno");
 
-const dashTotalEl  = document.getElementById("dash-total");
-const dashTodayEl  = document.getElementById("dash-today");
-const dashOnlineEl = document.getElementById("dash-online");
+const dashTotalEl   = document.getElementById("dash-total");
+const dashTodayEl   = document.getElementById("dash-today");
+const dashOnlineEl  = document.getElementById("dash-online");
+
+/* =========================
+   Spinner Login
+========================= */
+const loginSpinnerEl = document.getElementById("loginSpinner"); // <div id="loginSpinner"> ต้องอยู่ใน HTML
 
 /* =========================
    Helper
@@ -42,7 +47,13 @@ function login(){
   const pass = passwordEl.value.trim();
   if(!pass) return alert("กรุณากรอกรหัส");
 
+  // แสดง spinner
+  loginSpinnerEl.classList.remove("d-none");
+
   post({action:"login", password:pass}).then(res=>{
+    // ซ่อน spinner หลังได้ผล
+    loginSpinnerEl.classList.add("d-none");
+
     if(res.length){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
@@ -50,6 +61,9 @@ function login(){
     } else {
       alert("ข้อมูลไม่ถูกต้อง");
     }
+  }).catch(err=>{
+    loginSpinnerEl.classList.add("d-none");
+    alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
   });
 }
 
