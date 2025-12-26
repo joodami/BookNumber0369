@@ -43,31 +43,41 @@ function login(){
 }
 
 
+function submitData() {
+  const modalEl = document.getElementById("resultModal");
+  const modal = new bootstrap.Modal(modalEl);
 
-function submitData(){
-
-  const modal = new bootstrap.Modal(document.getElementById("resultModal"));
+  // แสดง loading modal
   document.getElementById("modal-loading").classList.remove("d-none");
   document.getElementById("modal-success").classList.add("d-none");
   modal.show();
 
   post({
-    action:"addRecord",
+    action: "addRecord",
     birthday: birthday.value,
     detail: detail.value,
     department: department.value,
     user: user.value
   })
-  .then(res=>{
-    if(!res || res.status !== "saved"){
+  .then(res => {
+    if (!res || res.status !== "saved") {
       alert("เกิดข้อผิดพลาด");
+      modal.hide();
       return;
     }
 
+    // ซ่อน loading, แสดง success
     document.getElementById("modal-loading").classList.add("d-none");
     document.getElementById("modal-success").classList.remove("d-none");
     document.getElementById("show-bookno").innerText =
       "เลขบันทึกข้อความ = " + res.bookno;
+
+    // เคลียร์ฟอร์ม
+    birthday.value = "";
+    detail.value = "";
+    department.value = "";
+    user.value = "";
+    document.getElementById("userform").classList.add("invisible");
   });
 }
 
