@@ -41,17 +41,18 @@ body {
   margin-bottom: 1.5rem !important;
 }
 
-/* ------------------ Dashboard ------------------ */
+/* Dashboard */
 .dashboard-wrap {
-  max-width: 900px;
+  max-width: 1200px; /* จำกัดขนาดสูงสุด */
   margin: 0 auto 2rem auto;
-  display: flex;
-  justify-content: center;
+  padding: 0 1rem; /* เว้นขอบด้านข้าง */
 }
+
 .dashboard-wrap .row {
   justify-content: center;
   gap: 1rem;
 }
+
 
 /* ------------------ Modal ------------------ */
 .modal-content {
