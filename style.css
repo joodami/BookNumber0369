@@ -1,0 +1,23 @@
+* { font-family: 'Prompt', sans-serif; }
+
+body {
+  background: linear-gradient(180deg,#edf2f6,#dee7ee);
+  padding: 2rem;
+}
+
+.banner {
+  max-width: 800px;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.card {
+  max-width: 800px;
+  margin: auto;
+  border-radius: 12px;
+}
+
+.invisible {
+  display: none;
+}
