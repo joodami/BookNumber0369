@@ -13,6 +13,8 @@ body {
 }
 
 .card {
+  max-width: 800px;
+  margin: auto;
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -40,6 +42,12 @@ body {
 .dashboard-wrap {
   max-width: 900px;
   margin: auto 0 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+#show-bookno {
+  white-space: nowrap; /* บรรทัดเดียว */
 }
 
 /* Modal */
@@ -50,11 +58,6 @@ body {
 }
 .modal-content.showing {
   transform: scale(1.05);
-}
-
-/* ตัวเลขไม่ตัดบรรทัด */
-#show-bookno {
-  white-space: nowrap;
 }
 
 /* Mobile */
