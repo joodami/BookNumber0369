@@ -1,8 +1,21 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 /* =========================
-   DOM Elements
+   DOM Elements (ทั้งหมด)
 ========================= */
+const passwordEl   = document.getElementById("password");
+const userEl       = document.getElementById("user");
+const userformEl   = document.getElementById("userform");
+
+const birthdayEl   = document.getElementById("birthday");
+const detailEl     = document.getElementById("detail");
+const departmentEl= document.getElementById("department");
+
+const btnLoginEl   = document.getElementById("btn-login");
+const btnSubmitEl  = document.getElementById("btn-submit");
+
+const resultModalEl = document.getElementById("resultModal");
+
 const modalLoadingEl = document.getElementById("modal-loading");
 const modalSuccessEl = document.getElementById("modal-success");
 const modalErrorEl   = document.getElementById("modal-error");
@@ -26,13 +39,13 @@ function post(data){
    Login
 ========================= */
 function login(){
-  const pass = password.value.trim();
+  const pass = passwordEl.value.trim();
   if(!pass) return alert("กรุณากรอกรหัส");
 
   post({action:"login", password:pass}).then(res=>{
     if(res.length){
-      user.value = res[0][1];
-      userform.classList.remove("invisible");
+      userEl.value = res[0][1];
+      userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
     } else {
       alert("ข้อมูลไม่ถูกต้อง");
@@ -44,16 +57,16 @@ function login(){
    Submit Data
 ========================= */
 function submitData(){
-  const modal = new bootstrap.Modal(resultModal);
+  const modal = new bootstrap.Modal(resultModalEl);
   modal.show();
 
   modalLoading();
   post({
     action:"addRecord",
-    birthday:birthday.value,
-    detail:detail.value,
-    department:department.value,
-    user:user.value
+    birthday: birthdayEl.value,
+    detail: detailEl.value,
+    department: departmentEl.value,
+    user: userEl.value
   }).then(res=>{
     if(res.error === "limit"){
       showError();
@@ -66,7 +79,7 @@ function submitData(){
 }
 
 /* =========================
-   Modal Control
+   Modal
 ========================= */
 function modalLoading(){
   modalLoadingEl.classList.remove("d-none");
@@ -89,12 +102,12 @@ function showError(){
    Reset
 ========================= */
 function resetToLogin(){
-  birthday.value = "";
-  detail.value = "";
-  department.value = "";
-  user.value = "";
-  password.value = "";
-  userform.classList.add("invisible");
+  birthdayEl.value = "";
+  detailEl.value = "";
+  departmentEl.value = "";
+  userEl.value = "";
+  passwordEl.value = "";
+  userformEl.classList.add("invisible");
   post({action:"deleteOnline"});
 }
 
@@ -116,10 +129,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
   loadDashboard();
   setInterval(loadDashboard,30000);
 
-  btn-login.onclick = login;
-  btn-submit.onclick = submitData;
+  btnLoginEl.onclick = login;
+  btnSubmitEl.onclick = submitData;
 
-  password.addEventListener("keydown",e=>{
+  passwordEl.addEventListener("keydown",e=>{
     if(e.key === "Enter") login();
   });
 
