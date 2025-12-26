@@ -1,3 +1,4 @@
+/* ------------------ Global ------------------ */
 body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
@@ -12,10 +13,11 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* ------------------ Card ------------------ */
 .card {
   max-width: 800px;
   margin: auto;
-  border-radius: 1rem;
+  border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover {
@@ -39,24 +41,30 @@ body {
   margin-bottom: 1.5rem !important;
 }
 
+/* ------------------ Dashboard ------------------ */
 .dashboard-wrap {
   max-width: 900px;
-  margin: auto 0 2rem 0;
+  margin: 0 auto 2rem auto; /* กึ่งกลาง horizontal */
+  display: flex;
+  justify-content: center;
 }
 
-/* Modal */
+.dashboard-wrap .row {
+  justify-content: center; /* กึ่งกลาง card ทั้งหมด */
+  gap: 1rem;              /* ระยะห่างระหว่าง card */
+}
+
+/* ------------------ Modal ------------------ */
 .modal-content {
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   overflow: hidden;
-  text-align: center;
-  padding: 2rem 1rem;
+  transition: transform 0.3s ease;
+}
+.modal-content.showing {
+  transform: scale(1.05);
 }
 
-#modal-success i {
-  font-size: 3rem;
-}
-
-/* Mobile */
+/* ------------------ Responsive ------------------ */
 @media (max-width: 576px) {
   body { padding: 1rem; }
   .card { border-radius: 10px; }
