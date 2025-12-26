@@ -13,28 +13,27 @@ function post(data){
 function login(){
   const passInput = document.getElementById("password");
   const pass = passInput.value.trim();
-  if(!pass){
-    alert("กรุณากรอกรหัสผ่าน");
-    return;
-  }
+  if(!pass){ alert("กรุณากรอกรหัสผ่าน"); return; }
 
   post({action:"login", password: pass}).then(res => {
-    if(!res) { alert("ไม่สามารถเชื่อมต่อระบบได้"); return; }
+    if(!res){ alert("ไม่สามารถเชื่อมต่อระบบได้"); return; }
     if(res.length){
       document.getElementById("user").value = res[0][1];
       document.getElementById("userform").classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
-    } else {
-      alert("ข้อมูลไม่ถูกต้อง");
-    }
+    } else { alert("ข้อมูลไม่ถูกต้อง"); }
   });
 }
 
 // ------------------ Submit Data ------------------
 function submitData(){
-  const modal = new bootstrap.Modal(document.getElementById("resultModal"));
-  document.getElementById("modal-loading").classList.remove("d-none");
-  document.getElementById("modal-success").classList.add("d-none");
+  const modalEl = document.getElementById("resultModal");
+  const modal = new bootstrap.Modal(modalEl);
+  const loading = document.getElementById("modal-loading");
+  const success = document.getElementById("modal-success");
+
+  loading.classList.remove("d-none");
+  success.classList.add("d-none");
   modal.show();
 
   post({
@@ -46,18 +45,17 @@ function submitData(){
   }).then(res => {
     if(!res || res.status !== "saved"){ alert("เกิดข้อผิดพลาด"); return; }
 
-    // แสดง modal success
-    document.getElementById("modal-loading").classList.add("d-none");
-    document.getElementById("modal-success").classList.remove("d-none");
-    document.getElementById("show-bookno").innerText =
-      `(เลขบันทึกข้อความ = ${res.bookno})`;
+    // แสดง success modal
+    loading.classList.add("d-none");
+    success.classList.remove("d-none");
+    document.getElementById("show-bookno").innerText = `(เลขบันทึกข้อความ = ${res.bookno})`;
 
     // เคลียร์ฟอร์มและผู้ใช้
     birthday.value = "";
     detail.value = "";
     department.value = "";
-    document.getElementById("user").value = "";
-    document.getElementById("password").value = "";
+    user.value = "";
+    password.value = "";
     document.getElementById("userform").classList.add("invisible");
 
     // ลบผู้ใช้จาก online
