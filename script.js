@@ -27,7 +27,12 @@ function login(){
 
   post({action:"login",password:pass})
     .then(res=>{
-      if(res && res.length){
+      if(!res){
+        alert("ไม่สามารถเชื่อมต่อระบบได้");
+        return;
+      }
+
+      if(res.length){
         document.getElementById("user").value = res[0][1];
         document.getElementById("userform").classList.remove("invisible");
         post({action:"addOnline",name:res[0][1]});
@@ -36,6 +41,7 @@ function login(){
       }
     });
 }
+
 
 
 function submitData(){
