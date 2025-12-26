@@ -57,3 +57,12 @@ body {
   margin: auto;
 }
 
+#userform .form-control,
+#userform button {
+  margin-bottom: 1rem; /* ระยะห่างระหว่างหัวข้อ */
+}
+
+#userform textarea {
+  min-height: 50px; /* สูงพอเหมาะ */
+}
+
