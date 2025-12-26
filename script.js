@@ -12,8 +12,10 @@ function post(data){
   .catch(err => { console.error("API error:", err); return null; });
 }
 
+// --- Login ---
 function login(){
-  const pass = document.getElementById("password").value.trim();
+  const passInput = document.getElementById("password");
+  const pass = passInput.value.trim();
   if(!pass){ alert("กรุณากรอกรหัสผ่าน"); return; }
 
   post({action:"login",password:pass})
@@ -27,6 +29,12 @@ function login(){
     });
 }
 
+// รองรับกด Enter ที่ input password
+document.getElementById("password").addEventListener("keydown", function(e){
+  if(e.key === "Enter") login();
+});
+
+// --- Submit Data ---
 function submitData(){
   const modalEl = document.getElementById("resultModal");
   const modal = new bootstrap.Modal(modalEl);
@@ -45,22 +53,26 @@ function submitData(){
   .then(res=>{
     if(!res || res.status!=="saved"){ alert("เกิดข้อผิดพลาด"); modal.hide(); return; }
 
+    // แสดงเลขบันทึกข้อความ
     document.getElementById("modal-loading").classList.add("d-none");
     document.getElementById("modal-success").classList.remove("d-none");
-    document.getElementById("show-bookno").innerText = "เลขบันทึกข้อความ = " + res.bookno;
+    document.getElementById("show-bookno").innerText = 
+      "เลขบันทึกข้อความ = " + res.bookno;
 
-    // เคลียร์ฟอร์มและซ่อน
+    // --- เคลียร์ข้อมูลผู้ใช้ทั้งหมด และกลับหน้า login ---
     birthday.value = "";
     detail.value = "";
     department.value = "";
     user.value = "";
     document.getElementById("userform").classList.add("invisible");
+    document.getElementById("password").value = "";
 
     // รีเฟรช Dashboard
     loadDashboard();
   });
 }
 
+// --- Dashboard ---
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
     if(!d) return;
