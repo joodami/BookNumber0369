@@ -1,7 +1,7 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 /* =========================
-   DOM Elements (ทั้งหมด)
+   DOM Elements
 ========================= */
 const passwordEl    = document.getElementById("password");
 const userEl        = document.getElementById("user");
@@ -25,10 +25,7 @@ const dashTotalEl   = document.getElementById("dash-total");
 const dashTodayEl   = document.getElementById("dash-today");
 const dashOnlineEl  = document.getElementById("dash-online");
 
-/* =========================
-   Spinner Login
-========================= */
-const loginSpinnerEl = document.getElementById("loginSpinner"); // <div id="loginSpinner"> ต้องอยู่ใน HTML
+const loginSpinnerEl = document.getElementById("loginSpinner");
 
 /* =========================
    Helper
@@ -47,11 +44,9 @@ function login(){
   const pass = passwordEl.value.trim();
   if(!pass) return alert("กรุณากรอกรหัส");
 
-  // แสดง spinner
   loginSpinnerEl.classList.remove("d-none");
 
   post({action:"login", password:pass}).then(res=>{
-    // ซ่อน spinner หลังได้ผล
     loginSpinnerEl.classList.add("d-none");
 
     if(res.length){
