@@ -11,10 +11,10 @@ function post(data){
     body: formData
   })
   .then(res => res.json())
-  .catch(err => {
-    alert("เชื่อมต่อระบบไม่ได้");
-    console.error(err);
-  });
+ .catch(err => {
+  console.error("API error:", err);
+  return null; // ❗ ห้าม alert ตรงนี้
+});
 }
 
 
@@ -58,11 +58,14 @@ function submitData(){
 
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
-    document.getElementById("dash-total").innerText = d.total;
-    document.getElementById("dash-today").innerText = d.today;
-    document.getElementById("dash-online").innerText = d.online;
+    if(!d) return; // ❗ ถ้า API ล่ม เงียบไว้
+
+    document.getElementById("dash-total").innerText = d.total ?? 0;
+    document.getElementById("dash-today").innerText = d.today ?? 0;
+    document.getElementById("dash-online").innerText = d.online ?? 0;
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", loadDashboard);
 setInterval(loadDashboard, 30000); // รีเฟรชทุก 30 วิ
