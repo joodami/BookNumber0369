@@ -45,22 +45,32 @@ function login(){
 
 
 function submitData(){
-  post({action:"getYear"}).then(year=>{
-    post({action:"getRowData"}).then(no=>{
-      post({
-        action:"addRecord",
-        bookno:String(no).padStart(3,"0"),
-        birthday: birthday.value,
-        detail: detail.value,
-        department: department.value,
-        user: user.value
-      }).then(()=>{
-        alert("บันทึกสำเร็จ");
-        location.reload();
-      });
-    });
+
+  const modal = new bootstrap.Modal(document.getElementById("resultModal"));
+  document.getElementById("modal-loading").classList.remove("d-none");
+  document.getElementById("modal-success").classList.add("d-none");
+  modal.show();
+
+  post({
+    action:"addRecord",
+    birthday: birthday.value,
+    detail: detail.value,
+    department: department.value,
+    user: user.value
+  })
+  .then(res=>{
+    if(!res || res.status !== "saved"){
+      alert("เกิดข้อผิดพลาด");
+      return;
+    }
+
+    document.getElementById("modal-loading").classList.add("d-none");
+    document.getElementById("modal-success").classList.remove("d-none");
+    document.getElementById("show-bookno").innerText =
+      "เลขบันทึกข้อความ = " + res.bookno;
   });
 }
+
 
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
