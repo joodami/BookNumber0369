@@ -40,3 +40,15 @@ function submitData(){
     });
   });
 }
+
+function loadDashboard(){
+  post({action:"dashboard"}).then(d=>{
+    document.getElementById("dash-total").innerText = d.total;
+    document.getElementById("dash-today").innerText = d.today;
+    document.getElementById("dash-online").innerText = d.online;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadDashboard);
+setInterval(loadDashboard, 30000); // รีเฟรชทุก 30 วิ
+
