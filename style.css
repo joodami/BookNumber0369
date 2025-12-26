@@ -44,14 +44,13 @@ body {
 /* ------------------ Dashboard ------------------ */
 .dashboard-wrap {
   max-width: 900px;
-  margin: 0 auto 2rem auto; /* กึ่งกลาง horizontal */
+  margin: 0 auto 2rem auto;
   display: flex;
   justify-content: center;
 }
-
 .dashboard-wrap .row {
-  justify-content: center; /* กึ่งกลาง card ทั้งหมด */
-  gap: 1rem;              /* ระยะห่างระหว่าง card */
+  justify-content: center;
+  gap: 1rem;
 }
 
 /* ------------------ Modal ------------------ */
