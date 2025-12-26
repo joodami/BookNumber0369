@@ -97,27 +97,33 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="resultModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content text-center rounded-4 shadow-lg">
+<!-- Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content text-center rounded-4 shadow-lg p-3">
 
-        <div class="modal-body" id="modal-loading">
-          <div class="spinner-border text-primary mb-3" role="status"></div>
-          <p class="fw-semibold">กรุณารอสักครู่<br>กำลังออกเลขบันทึกข้อความ</p>
-        </div>
-
-        <div class="modal-body d-none" id="modal-success">
-          <h5 class="mb-3 text-success">ออกเลขเรียบร้อยแล้ว</h5>
-          <h4 class="fw-bold" id="show-bookno"></h4>
-          <button class="btn btn-success mt-3 w-50" data-bs-dismiss="modal">
-            ตกลง
-          </button>
-        </div>
-
+      <!-- Loading -->
+      <div class="modal-body" id="modal-loading">
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <p class="fw-semibold mb-0">กรุณารอสักครู่<br>กำลังออกเลขบันทึกข้อความ</p>
       </div>
+
+      <!-- Success -->
+      <div class="modal-body d-none" id="modal-success">
+        <div class="mb-3">
+          <span class="fs-1 text-success">✅</span>
+        </div>
+        <h5 class="mb-2 text-success">ออกเลขเรียบร้อยแล้ว</h5>
+        <p class="fw-bold mb-3" id="show-bookno"></p>
+        <button class="btn btn-success w-50" data-bs-dismiss="modal">
+          ตกลง
+        </button>
+      </div>
+
     </div>
   </div>
+</div>
+
 
 </div>
 
