@@ -73,6 +73,30 @@
 
   </div>
 
+    <!-- Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+
+      <div class="modal-body" id="modal-loading">
+        <div class="spinner-border text-primary mb-3"></div>
+        <p>กรุณารอสักครู่<br>กำลังออกเลขบันทึกข้อความ</p>
+      </div>
+
+      <div class="modal-body d-none" id="modal-success">
+        <h5 class="mb-3">ออกเลขเรียบร้อยแล้ว</h5>
+        <h4 class="text-success" id="show-bookno"></h4>
+        <button class="btn btn-success mt-3" data-bs-dismiss="modal">
+          ตกลง
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="script.js"></script>
 </body>
 </html>
