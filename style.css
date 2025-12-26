@@ -15,7 +15,7 @@ body {
 .card {
   max-width: 800px;
   margin: auto;
-  border-radius: 12px;
+  border-radius: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover {
@@ -46,12 +46,14 @@ body {
 
 /* Modal */
 .modal-content {
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  text-align: center;
+  padding: 2rem 1rem;
 }
-.modal-content.showing {
-  transform: scale(1.05);
+
+#modal-success i {
+  font-size: 3rem;
 }
 
 /* Mobile */
