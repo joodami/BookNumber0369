@@ -46,33 +46,29 @@
     </div>
   </div>
 
-<!-- Login Card -->
-<div class="card form-card shadow-sm rounded-4">
-  <div class="card-header fw-bold">ลงชื่อเข้าใช้ระบบ</div>
-  <div class="card-body">
-    <!-- ช่องกรอกรหัส -->
-    <input type="password" id="password" class="form-control mb-3" placeholder="เบอร์โทร">
-    
-    <!-- ปุ่มเข้าสู่ระบบ -->
-    <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
-    
-    <!-- Spinner แสดงสถานะเข้าสู่ระบบ -->
-    <div id="loginSpinner" class="d-none text-center mt-2">
-      <div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;">
-        <span class="visually-hidden">Loading...</span>
+  <!-- Login Card -->
+  <div class="card form-card shadow-sm rounded-4">
+    <div class="card-header fw-bold">ลงชื่อเข้าใช้ระบบ</div>
+    <div class="card-body">
+      <input type="password" id="password" class="form-control mb-3" placeholder="เบอร์โทร">
+      <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
+
+      <!-- Spinner แสดงสถานะเข้าสู่ระบบ -->
+      <div id="loginSpinner" class="d-none text-center mt-2">
+        <div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
       </div>
-      <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
     </div>
   </div>
-</div>
-
 
   <!-- Form -->
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
       <div class="mb-3">
-        <label>วันที่</label>
+        <label>วันเกิด</label>
         <input type="date" id="birthday" class="form-control">
       </div>
       <div class="mb-3">
