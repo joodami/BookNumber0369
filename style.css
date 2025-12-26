@@ -2,19 +2,37 @@ body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Banner ขยายเต็มหน้าจอแต่มี max-width */
 .banner {
-  max-width: 800px;
   width: 100%;
+  max-width: 1200px;
   border-radius: 12px;
   margin-bottom: 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Dashboard */
+.dashboard-wrap {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-wrap .row {
+  width: 100%;
+}
+
+/* Card ทุกอันขยายตามคอลัมน์ */
 .card {
-  max-width: 800px;
-  margin: auto;
+  width: 100%;
+  margin-bottom: 1rem;
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -39,15 +57,10 @@ body {
   margin-bottom: 1.5rem !important;
 }
 
-.dashboard-wrap {
-  max-width: 900px;
-  margin: auto 0 2rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-#show-bookno {
-  white-space: nowrap; /* บรรทัดเดียว */
+/* User form */
+#userform {
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Modal */
@@ -60,8 +73,13 @@ body {
   transform: scale(1.05);
 }
 
+/* แสดงเลขบันทึกข้อความบรรทัดเดียว */
+#show-bookno {
+  white-space: nowrap;
+}
+
 /* Mobile */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   body { padding: 1rem; }
   .card { border-radius: 10px; }
   .card-header { font-size: 1rem; text-align: center; }
