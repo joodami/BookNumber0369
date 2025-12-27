@@ -1,6 +1,7 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 const passwordEl = document.getElementById("password");
+const passwordFeedbackEl = document.getElementById("password-feedback");
 const userEl = document.getElementById("user");
 const userformEl = document.getElementById("userform");
 const birthdayEl = document.getElementById("birthday");
@@ -21,47 +22,20 @@ const loginSpinnerEl = document.getElementById("loginSpinner");
 /* =========================
    Helper
 ========================= */
-function post(data){
-  return fetch(GAS_URL,{
-    method:"POST",
-    body:new URLSearchParams(data)
-  }).then(r=>r.json());
-}
-
-/* =========================
-   Validation (เพิ่ม)
-========================= */
-function validateForm() {
-  let valid = true;
-
-  [birthdayEl, detailEl, departmentEl].forEach(el => {
-    el.classList.remove("is-invalid");
-  });
-
-  if (!birthdayEl.value) {
-    birthdayEl.classList.add("is-invalid");
-    valid = false;
-  }
-
-  if (!detailEl.value.trim()) {
-    detailEl.classList.add("is-invalid");
-    valid = false;
-  }
-
-  if (!departmentEl.value.trim()) {
-    departmentEl.classList.add("is-invalid");
-    valid = false;
-  }
-
-  return valid;
-}
+function post(data){ return fetch(GAS_URL,{method:"POST",body:new URLSearchParams(data)}).then(r=>r.json()); }
 
 /* =========================
    Login
 ========================= */
 function login(){
   const pass = passwordEl.value.trim();
-  if(!pass) return alert("กรุณากรอกรหัส");
+  passwordEl.classList.remove("is-invalid");
+
+  if(!pass){
+    passwordEl.classList.add("is-invalid");
+    passwordFeedbackEl.innerText = "กรุณากรอกรหัส";
+    return;
+  }
 
   loginSpinnerEl.classList.remove("d-none");
 
@@ -72,26 +46,39 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
+      passwordEl.value = "";
+      passwordEl.classList.remove("is-invalid");
     } else {
-      alert("ข้อมูลไม่ถูกต้อง");
+      passwordEl.classList.add("is-invalid");
+      passwordFeedbackEl.innerText = "ข้อมูลไม่ถูกต้อง";
     }
-  }).catch(()=>{
+  }).catch(err=>{
     loginSpinnerEl.classList.add("d-none");
-    alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+    passwordEl.classList.add("is-invalid");
+    passwordFeedbackEl.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
   });
 }
 
 /* =========================
-   Submit Data
+   Submit Data with Validation
 ========================= */
 function submitData(){
+  let valid = true;
 
-  if (!validateForm()) return;
+  [birthdayEl, detailEl, departmentEl].forEach(el => {
+    el.classList.remove("is-invalid");
+    if(!el.value.trim()){
+      el.classList.add("is-invalid");
+      valid = false;
+    }
+  });
+
+  if(!valid) return;
 
   const modal = new bootstrap.Modal(resultModalEl);
   modal.show();
-
   modalLoading();
+
   post({
     action:"addRecord",
     birthday: birthdayEl.value,
@@ -112,20 +99,9 @@ function submitData(){
 /* =========================
    Modal
 ========================= */
-function modalLoading(){
-  modalLoadingEl.classList.remove("d-none");
-  modalSuccessEl.classList.add("d-none");
-  modalErrorEl.classList.add("d-none");
-}
-function showSuccess(bookno){
-  modalLoadingEl.classList.add("d-none");
-  modalSuccessEl.classList.remove("d-none");
-  showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`;
-}
-function showError(){
-  modalLoadingEl.classList.add("d-none");
-  modalErrorEl.classList.remove("d-none");
-}
+function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
+function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
+function showError(){ modalLoadingEl.classList.add("d-none"); modalErrorEl.classList.remove("d-none"); }
 
 /* =========================
    Reset
@@ -152,6 +128,24 @@ function loadDashboard(){
 }
 
 /* =========================
+   Check session 5 นาที
+========================= */
+function checkSession(){
+  if(!userEl.value) return;
+  post({action:"checkOnline", name:userEl.value}).then(res=>{
+    if(res.expired){
+      const modal = new bootstrap.Modal(resultModalEl);
+      modal.show();
+      modalLoadingEl.classList.add("d-none");
+      modalSuccessEl.classList.add("d-none");
+      modalErrorEl.classList.remove("d-none");
+      modalErrorEl.querySelector("h5").innerText = "ครบ 5 นาทีแล้ว กรุณาเข้าสู่ระบบใหม่";
+      resetToLogin();
+    }
+  });
+}
+
+/* =========================
    Init
 ========================= */
 document.addEventListener("DOMContentLoaded",()=>{
@@ -162,24 +156,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   btnSubmitEl.onclick = submitData;
   passwordEl.addEventListener("keydown", e => { if(e.key==="Enter") login(); });
 
-  [birthdayEl, detailEl, departmentEl].forEach(el => {
-    el.addEventListener("input", () => {
-      el.classList.remove("is-invalid");
-    });
-  });
+  setInterval(checkSession, 10000);
 });
 
-/* =========================
-   Close page
-========================= */
 window.addEventListener("beforeunload", () => {
   if (userEl.value) {
     navigator.sendBeacon(
       GAS_URL,
-      new URLSearchParams({
-        action: "deleteOnline",
-        name: userEl.value
-      })
+      new URLSearchParams({ action: "deleteOnline", name:userEl.value })
     );
   }
 });
