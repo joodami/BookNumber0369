@@ -23,13 +23,17 @@ const passwordFeedbackEl = document.getElementById("password-feedback");
 /* =========================
    Helper
 ========================= */
-function post(data){ return fetch(GAS_URL,{method:"POST",body:new URLSearchParams(data)}).then(r=>r.json()); }
+function post(data){ 
+  return fetch(GAS_URL, { method:"POST", body:new URLSearchParams(data) })
+         .then(r => r.json()); 
+}
 
 /* =========================
    Login
 ========================= */
 function login(){
   const pass = passwordEl.value.trim();
+
   if(!pass){
     passwordEl.classList.add("is-invalid");
     passwordFeedbackEl.innerText = "กรุณากรอกรหัส";
@@ -98,9 +102,22 @@ function submitData(){
 /* =========================
    Modal / Reset / Dashboard / Session
 ========================= */
-function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
-function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
-function showError(){ modalLoadingEl.classList.add("d-none"); modalErrorEl.classList.remove("d-none"); }
+function modalLoading(){ 
+  modalLoadingEl.classList.remove("d-none"); 
+  modalSuccessEl.classList.add("d-none"); 
+  modalErrorEl.classList.add("d-none"); 
+}
+
+function showSuccess(bookno){ 
+  modalLoadingEl.classList.add("d-none"); 
+  modalSuccessEl.classList.remove("d-none"); 
+  showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; 
+}
+
+function showError(){ 
+  modalLoadingEl.classList.add("d-none"); 
+  modalErrorEl.classList.remove("d-none"); 
+}
 
 function resetToLogin(){
   birthdayEl.value = "";
