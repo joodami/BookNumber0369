@@ -79,6 +79,6 @@ body {
 }
 
 #userform label {
-  font-weight: 600; /* ตัวหนา */
+  font-weight: 600 !important; /* บังคับตัวหนา */
 }
 
