@@ -19,14 +19,10 @@ const dashTodayEl = document.getElementById("dash-today");
 const dashOnlineEl = document.getElementById("dash-online");
 const loginSpinnerEl = document.getElementById("loginSpinner");
 
-/* =========================
-   Helper
-========================= */
+/* Helper */
 function post(data){ return fetch(GAS_URL,{method:"POST",body:new URLSearchParams(data)}).then(r=>r.json()); }
 
-/* =========================
-   Login
-========================= */
+/* Login */
 function login(){
   const pass = passwordEl.value.trim();
   if(!pass){
@@ -55,9 +51,7 @@ function login(){
   });
 }
 
-/* =========================
-   Toggle Eye Icon
-========================= */
+/* Toggle Eye Icon */
 togglePassword.addEventListener("click", () => {
   const type = passwordEl.type === "password" ? "text" : "password";
   passwordEl.type = type;
@@ -67,41 +61,25 @@ togglePassword.addEventListener("click", () => {
   icon.classList.toggle("bi-eye-slash");
 });
 
-/* =========================
-   Validate User Form
-========================= */
+/* Validate User Form */
 function validateForm(){
   let valid = true;
 
-  if(!birthdayEl.value.trim()){
-    birthdayEl.classList.add("is-invalid");
-    valid = false;
-  } else {
-    birthdayEl.classList.remove("is-invalid");
-  }
+  if(!birthdayEl.value.trim()){ birthdayEl.classList.add("is-invalid"); valid = false; }
+  else { birthdayEl.classList.remove("is-invalid"); }
 
-  if(!detailEl.value.trim()){
-    detailEl.classList.add("is-invalid");
-    valid = false;
-  } else {
-    detailEl.classList.remove("is-invalid");
-  }
+  if(!detailEl.value.trim()){ detailEl.classList.add("is-invalid"); valid = false; }
+  else { detailEl.classList.remove("is-invalid"); }
 
-  if(!departmentEl.value.trim()){
-    departmentEl.classList.add("is-invalid");
-    valid = false;
-  } else {
-    departmentEl.classList.remove("is-invalid");
-  }
+  if(!departmentEl.value.trim()){ departmentEl.classList.add("is-invalid"); valid = false; }
+  else { departmentEl.classList.remove("is-invalid"); }
 
   return valid;
 }
 
-/* =========================
-   Submit Data
-========================= */
+/* Submit Data */
 function submitData(){
-  if(!validateForm()) return; // ตรวจสอบกรอกครบทุกช่องก่อน
+  if(!validateForm()) return; // ตรวจสอบกรอกครบทุกช่องก่อนส่ง
 
   const modal = new bootstrap.Modal(resultModalEl);
   modal.show();
@@ -124,9 +102,7 @@ function submitData(){
   });
 }
 
-/* =========================
-   Modal / Reset / Dashboard / Session
-========================= */
+/* Modal / Reset / Dashboard / Session */
 function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
 function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
 function showError(){ modalLoadingEl.classList.add("d-none"); modalErrorEl.classList.remove("d-none"); }
@@ -186,3 +162,4 @@ window.addEventListener("beforeunload", () => {
     );
   }
 });
+
