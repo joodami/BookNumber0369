@@ -1,3 +1,6 @@
+/* =========================
+   Body และ Layout
+========================= */
 body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
@@ -6,14 +9,57 @@ body {
   justify-content: center;
 }
 
-.max-width-container { max-width: 1200px; width: 100%; }
-.banner { width: 100%; border-radius: 12px; margin-bottom: 2rem; }
-.dashboard-wrap { margin-bottom: 2rem; }
-.form-card { width: 100%; max-width: 1200px; margin: auto; }
-.card { border-radius: 12px; }
-#show-bookno { font-size: 1.25rem; word-break: break-word; }
+.max-width-container { 
+  max-width: 1200px; 
+  width: 100%; 
+}
 
+.banner { 
+  width: 100%; 
+  border-radius: 12px; 
+  margin-bottom: 2rem; 
+}
+
+.dashboard-wrap { 
+  margin-bottom: 2rem; 
+}
+
+.form-card { 
+  width: 100%; 
+  max-width: 1200px; 
+  margin: auto; 
+}
+
+.card { 
+  border-radius: 12px; 
+}
+
+#show-bookno { 
+  font-size: 1.25rem; 
+  word-break: break-word; 
+}
+
+/* =========================
+   Eye icon ในช่องรหัส
+========================= */
+#togglePassword {
+  font-size: 1.2rem;       /* ขนาด icon */
+  color: #6c757d;           /* สีเทา */
+  cursor: pointer;
+}
+
+#togglePassword:hover {
+  color: #000;              /* เปลี่ยนเป็นดำเมื่อ hover */
+}
+
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 768px) {
-  body { padding: 0.25rem; }
-  h3 { font-size: 1.4rem; }
+  body { 
+    padding: 0.25rem; 
+  }
+  h3 { 
+    font-size: 1.4rem; 
+  }
 }
