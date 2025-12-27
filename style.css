@@ -77,3 +77,8 @@ body {
     font-size: 1.4rem; 
   }
 }
+
+#userform label {
+  font-weight: 600; /* ตัวหนา */
+}
+
