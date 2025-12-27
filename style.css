@@ -1,3 +1,6 @@
+/* =========================
+   Body และ Layout
+========================= */
 body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
@@ -36,12 +39,12 @@ body {
   word-break: break-word; 
 }
 
+/* Eye icon */
 #togglePassword {
   font-size: 1.2rem;
   color: #6c757d;
   cursor: pointer;
 }
-
 #togglePassword:hover { color: #000; }
 
 /* Invalid feedback */
@@ -51,7 +54,6 @@ body {
   margin-top: 0.25rem;
   display: none;
 }
-
 input.is-invalid ~ .invalid-feedback,
 textarea.is-invalid ~ .invalid-feedback {
   display: block;
@@ -68,17 +70,18 @@ textarea.is-invalid ~ .invalid-feedback {
   border-top: 1px solid #dee2e6;
   font-size: 0.875rem;
   color: #6c757d;
-  
-  width: 100%;               /* ให้เต็ม container */
-  max-width: 1200px;         /* เท่ากับ max-width-container */
-  margin: 0 auto;            /* จัดกึ่งกลาง */
-  text-align: center;         /* ข้อความอยู่ตรงกลาง */
-  box-sizing: border-box;     /* ป้องกัน padding ทำให้เกิน */
-  padding: 0.75rem 0;        /* ปรับ padding ให้สวยงาม */
+
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0.75rem 0;
 }
 
-
-/* Responsive */
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 768px) {
   body { padding: 0.25rem; }
   h3 { font-size: 1.4rem; }
