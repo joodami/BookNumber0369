@@ -143,13 +143,18 @@ function checkSession(){
       modalErrorEl.classList.remove("d-none");
       modalErrorEl.querySelector("h5").innerText = "⏰ ใช้เวลาเกิน 5 นาที!\nกรุณาเข้าสู่ระบบใหม่";
 
-      modal.show();
+      // ปรับปุ่มตกลงให้เคลียร์ผู้ใช้และกลับ login
+      const btn = modalErrorEl.querySelector("button");
+      btn.onclick = () => {
+        resetToLogin();
+        modal.hide();
+      };
 
-      // เคลียร์ฟอร์มและกลับหน้า login ทันที
-      resetToLogin();
+      modal.show();
     }
   });
 }
+
 /* -------------------------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded",()=>{
