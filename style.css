@@ -5,16 +5,15 @@ body {
   padding: 0.5rem;
 
   display: flex;
-  flex-direction: column;   /* ให้เนื้อหาเรียงแนวตั้ง */
-  min-height: 100vh;        /* ให้สูงเต็มหน้าจอ */
+  flex-direction: column;   /* เรียงแนวตั้ง */
+  min-height: 100vh;        /* สูงเต็มหน้าจอ */
 }
 
 /* ------------------ Container -------------------- */
 .max-width-container { 
   max-width: 1200px; 
   width: 100%; 
-
-  flex: 1 0 auto;          /* ให้ container ยืดเต็มพื้นที่แนวตั้งเพื่อดัน footer ลงล่าง */
+  flex: 1 0 auto;           /* ดัน footer ลงล่าง */
 }
 
 /* -------------------- Banner --------------------- */
