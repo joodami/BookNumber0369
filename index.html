@@ -50,7 +50,10 @@
     <div class="card-body">
       <div class="mb-3 position-relative">
         <input type="password" id="password" class="form-control mb-1" placeholder="เบอร์โทร">
-        <i class="bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 text-secondary" id="togglePassword" style="cursor:pointer;"></i>
+        <!-- Eye icon -->
+        <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary" style="cursor:pointer; z-index:2;">
+          <i class="bi bi-eye"></i>
+        </span>
         <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
       </div>
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
@@ -64,7 +67,6 @@
     </div>
   </div>
 
-  <!-- ส่วน userform และ modal ไม่แก้ -->
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
