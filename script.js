@@ -1,7 +1,7 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
 
 const passwordEl = document.getElementById("password");
-const passwordFeedbackEl = document.getElementById("password-feedback");
+const togglePassword = document.getElementById("togglePassword");
 const userEl = document.getElementById("user");
 const userformEl = document.getElementById("userform");
 const birthdayEl = document.getElementById("birthday");
@@ -29,12 +29,11 @@ function post(data){ return fetch(GAS_URL,{method:"POST",body:new URLSearchParam
 ========================= */
 function login(){
   const pass = passwordEl.value.trim();
-  passwordEl.classList.remove("is-invalid");
-
   if(!pass){
     passwordEl.classList.add("is-invalid");
-    passwordFeedbackEl.innerText = "กรุณากรอกรหัส";
     return;
+  } else {
+    passwordEl.classList.remove("is-invalid");
   }
 
   loginSpinnerEl.classList.remove("d-none");
@@ -46,39 +45,34 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
-      passwordEl.value = "";
-      passwordEl.classList.remove("is-invalid");
     } else {
-      passwordEl.classList.add("is-invalid");
-      passwordFeedbackEl.innerText = "ข้อมูลไม่ถูกต้อง";
+      alert("ข้อมูลไม่ถูกต้อง");
     }
   }).catch(err=>{
     loginSpinnerEl.classList.add("d-none");
-    passwordEl.classList.add("is-invalid");
-    passwordFeedbackEl.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
+    alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
   });
 }
 
 /* =========================
-   Submit Data with Validation
+   Toggle Eye Icon
+========================= */
+togglePassword.addEventListener("click", () => {
+  const type = passwordEl.type === "password" ? "text" : "password";
+  passwordEl.type = type;
+  togglePassword.classList.toggle("bi-eye");
+  togglePassword.classList.toggle("bi-eye-slash");
+});
+
+/* =========================
+   Submit Data
+   ส่วนอื่นไม่แก้
 ========================= */
 function submitData(){
-  let valid = true;
-
-  [birthdayEl, detailEl, departmentEl].forEach(el => {
-    el.classList.remove("is-invalid");
-    if(!el.value.trim()){
-      el.classList.add("is-invalid");
-      valid = false;
-    }
-  });
-
-  if(!valid) return;
-
   const modal = new bootstrap.Modal(resultModalEl);
   modal.show();
-  modalLoading();
 
+  modalLoading();
   post({
     action:"addRecord",
     birthday: birthdayEl.value,
@@ -97,15 +91,13 @@ function submitData(){
 }
 
 /* =========================
-   Modal
+   Modal / Reset / Dashboard / Session
+   ไม่แก้
 ========================= */
 function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
 function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
 function showError(){ modalLoadingEl.classList.add("d-none"); modalErrorEl.classList.remove("d-none"); }
 
-/* =========================
-   Reset
-========================= */
 function resetToLogin(){
   birthdayEl.value = "";
   detailEl.value = "";
@@ -116,9 +108,6 @@ function resetToLogin(){
   userEl.value = "";
 }
 
-/* =========================
-   Dashboard
-========================= */
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
     dashTotalEl.innerText = d.total;
@@ -127,9 +116,6 @@ function loadDashboard(){
   });
 }
 
-/* =========================
-   Check session 5 นาที
-========================= */
 function checkSession(){
   if(!userEl.value) return;
   post({action:"checkOnline", name:userEl.value}).then(res=>{
@@ -145,9 +131,6 @@ function checkSession(){
   });
 }
 
-/* =========================
-   Init
-========================= */
 document.addEventListener("DOMContentLoaded",()=>{
   loadDashboard();
   setInterval(loadDashboard,30000);
@@ -163,7 +146,10 @@ window.addEventListener("beforeunload", () => {
   if (userEl.value) {
     navigator.sendBeacon(
       GAS_URL,
-      new URLSearchParams({ action: "deleteOnline", name:userEl.value })
+      new URLSearchParams({
+        action: "deleteOnline",
+        name: userEl.value
+      })
     );
   }
 });
