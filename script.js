@@ -136,3 +136,17 @@ document.addEventListener("DOMContentLoaded",()=>{
   // ตรวจ session ทุก 10 วินาที
   setInterval(checkSession, 10000);
 });
+
+/* ✅ เพิ่มแค่นี้ เพื่อกรณีปิดหน้า */
+window.addEventListener("beforeunload", () => {
+  if (userEl.value) {
+    navigator.sendBeacon(
+      GAS_URL,
+      new URLSearchParams({
+        action: "deleteOnline",
+        name: userEl.value
+      })
+    );
+  }
+});
+
