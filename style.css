@@ -6,37 +6,13 @@ body {
   justify-content: center;
 }
 
-.max-width-container {
-  max-width: 1200px;
-  width: 100%;
-}
+.max-width-container { max-width: 1200px; width: 100%; }
+.banner { width: 100%; border-radius: 12px; margin-bottom: 2rem; }
+.dashboard-wrap { margin-bottom: 2rem; }
+.form-card { width: 100%; max-width: 1200px; margin: auto; }
+.card { border-radius: 12px; }
+#show-bookno { font-size: 1.25rem; word-break: break-word; }
 
-.banner {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-}
-
-.dashboard-wrap {
-  margin-bottom: 2rem;
-}
-
-.form-card {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.card {
-  border-radius: 12px;
-}
-
-#show-bookno {
-  font-size: 1.25rem;
-  word-break: break-word;
-}
-
-/* ✅ เพิ่ม responsive เท่านั้น */
 @media (max-width: 768px) {
   body { padding: 0.25rem; }
   h3 { font-size: 1.4rem; }
