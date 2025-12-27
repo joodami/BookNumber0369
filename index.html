@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>ระบบขอเลขหนังสือราชการออนไลน์</title>
 
-  <!-- ✅ เพิ่มเพื่อรองรับมือถือ/iPad -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
@@ -53,37 +52,45 @@
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
 
       <div id="loginSpinner" class="d-none text-center mt-2">
-        <div class="spinner-border text-primary" role="status" style="width:2rem;height:2rem">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+        <div class="spinner-border text-primary" role="status"></div>
         <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
       </div>
     </div>
   </div>
 
+  <!-- ================= ฟอร์มบันทึกข้อมูล ================= -->
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
+
       <div class="mb-3">
         <label>วันที่</label>
         <input type="date" id="birthday" class="form-control">
+        <div class="invalid-feedback">กรุณาเลือกวันที่</div>
       </div>
+
       <div class="mb-3">
         <label>เรื่อง</label>
         <textarea id="detail" class="form-control"></textarea>
+        <div class="invalid-feedback">กรุณากรอกเรื่อง</div>
       </div>
+
       <div class="mb-3">
         <label>ผู้ปฏิบัติ</label>
         <textarea id="department" class="form-control"></textarea>
+        <div class="invalid-feedback">กรุณากรอกผู้ปฏิบัติ</div>
       </div>
+
       <div class="mb-3">
         <label>ผู้ใช้</label>
         <input id="user" class="form-control" disabled>
       </div>
+
       <button class="btn btn-success w-100" id="btn-submit">รับเลขบันทึก</button>
     </div>
   </div>
 
+  <!-- ================= Modal ================= -->
   <div class="modal fade" id="resultModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-md">
       <div class="modal-content rounded-4 text-center p-3">
