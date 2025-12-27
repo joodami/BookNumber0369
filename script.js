@@ -60,13 +60,14 @@ function login(){
 togglePassword.addEventListener("click", () => {
   const type = passwordEl.type === "password" ? "text" : "password";
   passwordEl.type = type;
-  togglePassword.classList.toggle("bi-eye");
-  togglePassword.classList.toggle("bi-eye-slash");
+
+  const icon = togglePassword.querySelector("i");
+  icon.classList.toggle("bi-eye");
+  icon.classList.toggle("bi-eye-slash");
 });
 
 /* =========================
    Submit Data
-   ส่วนอื่นไม่แก้
 ========================= */
 function submitData(){
   const modal = new bootstrap.Modal(resultModalEl);
@@ -92,7 +93,6 @@ function submitData(){
 
 /* =========================
    Modal / Reset / Dashboard / Session
-   ไม่แก้
 ========================= */
 function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
 function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
