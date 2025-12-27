@@ -43,27 +43,45 @@ body {
    Eye icon ในช่องรหัส
 ========================= */
 #togglePassword {
-  font-size: 1.2rem;       /* ขนาด icon */
-  color: #6c757d;           /* สีเทา */
+  font-size: 1.2rem;
+  color: #6c757d;
   cursor: pointer;
 }
 
 #togglePassword:hover {
-  color: #000;              /* เปลี่ยนเป็นดำเมื่อ hover */
+  color: #000;
 }
 
 /* =========================
    Invalid feedback ปรับให้สวยเหมือน Bootstrap
 ========================= */
-#password-feedback {
-  color: #dc3545;          /* สีแดง Bootstrap */
-  font-size: 0.875rem;     /* ขนาดตัวอักษรเล็ก */
-  margin-top: 0.25rem;     /* เว้นระยะจาก input */
-  display: none;           /* ซ่อนเริ่มต้น */
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
 }
 
-#password.is-invalid ~ #password-feedback {
-  display: block;          /* แสดงเมื่อ input มี is-invalid */
+input.is-invalid ~ .invalid-feedback,
+textarea.is-invalid ~ .invalid-feedback {
+  display: block;
+}
+
+/* =========================
+   Label ตัวหนาในฟอร์ม
+========================= */
+#userform label {
+  font-weight: 600 !important;
+}
+
+/* =========================
+   Footer
+========================= */
+#main-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  font-size: 0.875rem;
+  color: #6c757d;
 }
 
 /* =========================
@@ -77,8 +95,3 @@ body {
     font-size: 1.4rem; 
   }
 }
-
-#userform label {
-  font-weight: 600 !important; /* บังคับตัวหนา */
-}
-
