@@ -18,30 +18,25 @@ const dashTotalEl = document.getElementById("dash-total");
 const dashTodayEl = document.getElementById("dash-today");
 const dashOnlineEl = document.getElementById("dash-online");
 const loginSpinnerEl = document.getElementById("loginSpinner");
-const passwordFeedbackEl = document.getElementById("password-feedback");
 
 /* =========================
    Helper
 ========================= */
-function post(data){ 
-  return fetch(GAS_URL, { method:"POST", body:new URLSearchParams(data) })
-         .then(r => r.json()); 
-}
+function post(data){ return fetch(GAS_URL,{method:"POST",body:new URLSearchParams(data)}).then(r=>r.json()); }
 
 /* =========================
    Login
 ========================= */
 function login(){
   const pass = passwordEl.value.trim();
-
   if(!pass){
     passwordEl.classList.add("is-invalid");
-    passwordFeedbackEl.innerText = "กรุณากรอกรหัส";
     return;
+  } else {
+    passwordEl.classList.remove("is-invalid");
   }
 
   loginSpinnerEl.classList.remove("d-none");
-  passwordEl.classList.remove("is-invalid");
 
   post({action:"login", password:pass}).then(res=>{
     loginSpinnerEl.classList.add("d-none");
@@ -50,15 +45,13 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
-      passwordEl.classList.remove("is-invalid");
     } else {
       passwordEl.classList.add("is-invalid");
-      passwordFeedbackEl.innerText = "รหัสไม่ถูกต้อง";
+      document.getElementById("password-feedback").innerText = "ข้อมูลไม่ถูกต้อง";
     }
   }).catch(err=>{
     loginSpinnerEl.classList.add("d-none");
-    passwordEl.classList.add("is-invalid");
-    passwordFeedbackEl.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
+    alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
   });
 }
 
@@ -75,9 +68,41 @@ togglePassword.addEventListener("click", () => {
 });
 
 /* =========================
+   Validate User Form
+========================= */
+function validateForm(){
+  let valid = true;
+
+  if(!birthdayEl.value.trim()){
+    birthdayEl.classList.add("is-invalid");
+    valid = false;
+  } else {
+    birthdayEl.classList.remove("is-invalid");
+  }
+
+  if(!detailEl.value.trim()){
+    detailEl.classList.add("is-invalid");
+    valid = false;
+  } else {
+    detailEl.classList.remove("is-invalid");
+  }
+
+  if(!departmentEl.value.trim()){
+    departmentEl.classList.add("is-invalid");
+    valid = false;
+  } else {
+    departmentEl.classList.remove("is-invalid");
+  }
+
+  return valid;
+}
+
+/* =========================
    Submit Data
 ========================= */
 function submitData(){
+  if(!validateForm()) return; // ตรวจสอบกรอกครบทุกช่องก่อน
+
   const modal = new bootstrap.Modal(resultModalEl);
   modal.show();
 
@@ -102,29 +127,15 @@ function submitData(){
 /* =========================
    Modal / Reset / Dashboard / Session
 ========================= */
-function modalLoading(){ 
-  modalLoadingEl.classList.remove("d-none"); 
-  modalSuccessEl.classList.add("d-none"); 
-  modalErrorEl.classList.add("d-none"); 
-}
-
-function showSuccess(bookno){ 
-  modalLoadingEl.classList.add("d-none"); 
-  modalSuccessEl.classList.remove("d-none"); 
-  showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; 
-}
-
-function showError(){ 
-  modalLoadingEl.classList.add("d-none"); 
-  modalErrorEl.classList.remove("d-none"); 
-}
+function modalLoading(){ modalLoadingEl.classList.remove("d-none"); modalSuccessEl.classList.add("d-none"); modalErrorEl.classList.add("d-none"); }
+function showSuccess(bookno){ modalLoadingEl.classList.add("d-none"); modalSuccessEl.classList.remove("d-none"); showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`; }
+function showError(){ modalLoadingEl.classList.add("d-none"); modalErrorEl.classList.remove("d-none"); }
 
 function resetToLogin(){
   birthdayEl.value = "";
   detailEl.value = "";
   departmentEl.value = "";
   passwordEl.value = "";
-  passwordEl.classList.remove("is-invalid");
   userformEl.classList.add("invisible");
   post({action:"deleteOnline", name:userEl.value});
   userEl.value = "";
