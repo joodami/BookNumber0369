@@ -60,13 +60,23 @@ textarea.is-invalid ~ .invalid-feedback {
 /* Label ตัวหนา */
 #userform label { font-weight: 600 !important; }
 
-/* Footer */
+/* =========================
+   Footer
+========================= */
 #main-footer {
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
   font-size: 0.875rem;
   color: #6c757d;
+  
+  width: 100%;               /* ให้เต็ม container */
+  max-width: 1200px;         /* เท่ากับ max-width-container */
+  margin: 0 auto;            /* จัดกึ่งกลาง */
+  text-align: center;         /* ข้อความอยู่ตรงกลาง */
+  box-sizing: border-box;     /* ป้องกัน padding ทำให้เกิน */
+  padding: 0.75rem 0;        /* ปรับ padding ให้สวยงาม */
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {
