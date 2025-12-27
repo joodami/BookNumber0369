@@ -18,6 +18,7 @@ const dashTotalEl = document.getElementById("dash-total");
 const dashTodayEl = document.getElementById("dash-today");
 const dashOnlineEl = document.getElementById("dash-online");
 const loginSpinnerEl = document.getElementById("loginSpinner");
+const passwordFeedbackEl = document.getElementById("password-feedback");
 
 /* =========================
    Helper
@@ -31,12 +32,12 @@ function login(){
   const pass = passwordEl.value.trim();
   if(!pass){
     passwordEl.classList.add("is-invalid");
+    passwordFeedbackEl.innerText = "กรุณากรอกรหัส";
     return;
-  } else {
-    passwordEl.classList.remove("is-invalid");
   }
 
   loginSpinnerEl.classList.remove("d-none");
+  passwordEl.classList.remove("is-invalid");
 
   post({action:"login", password:pass}).then(res=>{
     loginSpinnerEl.classList.add("d-none");
@@ -45,12 +46,15 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
+      passwordEl.classList.remove("is-invalid");
     } else {
-      alert("ข้อมูลไม่ถูกต้อง");
+      passwordEl.classList.add("is-invalid");
+      passwordFeedbackEl.innerText = "รหัสไม่ถูกต้อง";
     }
   }).catch(err=>{
     loginSpinnerEl.classList.add("d-none");
-    alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+    passwordEl.classList.add("is-invalid");
+    passwordFeedbackEl.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
   });
 }
 
@@ -103,6 +107,7 @@ function resetToLogin(){
   detailEl.value = "";
   departmentEl.value = "";
   passwordEl.value = "";
+  passwordEl.classList.remove("is-invalid");
   userformEl.classList.add("invisible");
   post({action:"deleteOnline", name:userEl.value});
   userEl.value = "";
