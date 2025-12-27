@@ -125,20 +125,32 @@ function loadDashboard(){
   });
 }
 
+/* ---------------------- แก้ไขฟังก์ชัน checkSession ---------------------- */
 function checkSession(){
   if(!userEl.value) return;
+
   post({action:"checkOnline", name:userEl.value}).then(res=>{
     if(res.expired){
-      const modal = new bootstrap.Modal(resultModalEl);
-      modal.show();
+      // สร้าง modal พร้อมป้องกันปิด
+      const modal = new bootstrap.Modal(resultModalEl, {
+        backdrop: 'static', // คลิกข้างนอกไม่ปิด
+        keyboard: false     // กด Esc ไม่ปิด
+      });
+
+      // แสดง modal error
       modalLoadingEl.classList.add("d-none");
       modalSuccessEl.classList.add("d-none");
       modalErrorEl.classList.remove("d-none");
-      modalErrorEl.querySelector("h5").innerText = "ครบ 5 นาทีแล้ว กรุณาเข้าสู่ระบบใหม่";
+      modalErrorEl.querySelector("h5").innerText = "⏰ ใช้เวลาเกิน 5 นาที!\nกรุณาเข้าสู่ระบบใหม่";
+
+      modal.show();
+
+      // เคลียร์ฟอร์มและกลับหน้า login ทันที
       resetToLogin();
     }
   });
 }
+/* -------------------------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded",()=>{
   loadDashboard();
