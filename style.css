@@ -53,6 +53,20 @@ body {
 }
 
 /* =========================
+   Invalid feedback ปรับให้สวยเหมือน Bootstrap
+========================= */
+#password-feedback {
+  color: #dc3545;          /* สีแดง Bootstrap */
+  font-size: 0.875rem;     /* ขนาดตัวอักษรเล็ก */
+  margin-top: 0.25rem;     /* เว้นระยะจาก input */
+  display: none;           /* ซ่อนเริ่มต้น */
+}
+
+#password.is-invalid ~ #password-feedback {
+  display: block;          /* แสดงเมื่อ input มี is-invalid */
+}
+
+/* =========================
    Responsive
 ========================= */
 @media (max-width: 768px) {
