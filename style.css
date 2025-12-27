@@ -5,13 +5,18 @@ body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 0.5rem;
+
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .max-width-container { 
   max-width: 1200px; 
   width: 100%; 
+  flex: 1; /* ดัน footer ลงด้านล่าง */
 }
 
 .banner { 
@@ -77,6 +82,8 @@ textarea.is-invalid ~ .invalid-feedback {
   text-align: center;
   box-sizing: border-box;
   padding: 0.75rem 0;
+
+  flex-shrink: 0;
 }
 
 /* =========================
