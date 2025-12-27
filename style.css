@@ -4,8 +4,8 @@ body {
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 0.5rem;
 
-  display: flex;            /* คงไว้เหมือนเดิม */
-  flex-direction: column;   /* แก้จาก row เป็น column เพื่อให้ footer อยู่ด้านล่าง */
+  display: flex;
+  flex-direction: column;   /* ให้เนื้อหาเรียงแนวตั้ง */
   min-height: 100vh;        /* ให้สูงเต็มหน้าจอ */
 }
 
@@ -78,6 +78,8 @@ textarea.is-invalid ~ .invalid-feedback {
 
   flex-shrink: 0;  /* ป้องกัน footer ถูกย่อเมื่อเนื้อหาน้อย */
   width: 100%;     /* ให้กว้างเต็มหน้า */
+  text-align: center;
+  padding: 1rem 0;
 }
 
 /* ------------------ Responsive ------------------ */
