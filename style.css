@@ -17,11 +17,21 @@ body {
 }
 
 /* -------------------- Banner --------------------- */
-.banner { 
-  width: 100%; 
-  border-radius: 12px; 
-  margin-bottom: 2rem; 
+/* -------------------- Banner Full Width -------------------- */
+.banner-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
 }
+
+.banner-img {
+  width: 100%;
+  height: clamp(180px, 30vw, 420px); /* มือถือ / iPad / Desktop */
+  object-fit: cover;
+  display: block;
+  border-radius: 0; /* ไม่มีโค้ง */
+}
+
 
 /* ---------------- Dashboard -------------------- */
 .dashboard-wrap { 
