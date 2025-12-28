@@ -21,6 +21,7 @@ const loginSpinnerEl = document.getElementById("loginSpinner");
 
 // ------------------ Countdown ------------------
 let countdownInterval;
+let countdownEndTime; // ใช้เก็บเวลาสิ้นสุดจริง
 const countdownContainer = document.createElement("div");
 countdownContainer.id = "countdown-container";
 countdownContainer.style = "font-weight:bold; color:#dc3545; margin-bottom:0.5rem; text-align:right;";
@@ -29,22 +30,33 @@ countdownEl.id = "countdown";
 countdownContainer.appendChild(countdownEl);
 userformEl.querySelector(".card-header").appendChild(countdownContainer);
 
+// เริ่ม countdown ตามเวลาจริง
 function startCountdown(minutes) {
-  let remaining = minutes * 60; // วินาที
-  countdownEl.innerText = formatTime(remaining);
+  const now = Date.now();
+  countdownEndTime = now + minutes * 60 * 1000; // เวลาสิ้นสุดใน milliseconds
 
   clearInterval(countdownInterval);
-  countdownInterval = setInterval(() => {
-    remaining--;
-    countdownEl.innerText = formatTime(remaining);
-
-    if (remaining <= 0) {
-      clearInterval(countdownInterval);
-      showSessionExpiredAndReset();
-    }
-  }, 1000);
+  updateCountdown(); // อัปเดตทันที
+  countdownInterval = setInterval(updateCountdown, 1000);
 }
 
+// อัปเดต countdown โดยคำนวณจากเวลาจริง
+function updateCountdown() {
+  const now = Date.now();
+  let remainingMs = countdownEndTime - now;
+
+  if (remainingMs <= 0) {
+    clearInterval(countdownInterval);
+    countdownEl.innerText = "00:00";
+    showSessionExpiredAndReset();
+    return;
+  }
+
+  const remainingSec = Math.floor(remainingMs / 1000);
+  countdownEl.innerText = formatTime(remainingSec);
+}
+
+// แปลงวินาทีเป็น MM:SS
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
   const s = sec % 60;
