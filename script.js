@@ -19,50 +19,6 @@ const dashTodayEl = document.getElementById("dash-today");
 const dashOnlineEl = document.getElementById("dash-online");
 const loginSpinnerEl = document.getElementById("loginSpinner");
 
-// ------------------ Countdown ------------------
-let countdownInterval;
-let countdownEndTime; // ใช้เก็บเวลาสิ้นสุดจริง
-const countdownContainer = document.createElement("div");
-countdownContainer.id = "countdown-container";
-countdownContainer.style = "font-weight:bold; color:#dc3545; margin-bottom:0.5rem; text-align:right;";
-const countdownEl = document.createElement("span");
-countdownEl.id = "countdown";
-countdownContainer.appendChild(countdownEl);
-userformEl.querySelector(".card-header").appendChild(countdownContainer);
-
-// เริ่ม countdown ตามเวลาจริง
-function startCountdown(minutes) {
-  const now = Date.now();
-  countdownEndTime = now + minutes * 60 * 1000; // เวลาสิ้นสุดใน milliseconds
-
-  clearInterval(countdownInterval);
-  updateCountdown(); // อัปเดตทันที
-  countdownInterval = setInterval(updateCountdown, 1000);
-}
-
-// อัปเดต countdown โดยคำนวณจากเวลาจริง
-function updateCountdown() {
-  const now = Date.now();
-  let remainingMs = countdownEndTime - now;
-
-  if (remainingMs <= 0) {
-    clearInterval(countdownInterval);
-    countdownEl.innerText = "00:00";
-    showSessionExpiredAndReset();
-    return;
-  }
-
-  const remainingSec = Math.floor(remainingMs / 1000);
-  countdownEl.innerText = formatTime(remainingSec);
-}
-
-// แปลงวินาทีเป็น MM:SS
-function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-}
-
 // ------------------ Helper ------------------
 function post(data){
   return fetch(GAS_URL,{
@@ -90,7 +46,7 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
-      startCountdown(5); // ✅ เริ่มนับถอยหลัง 5 นาที
+      // ✅ ไม่เรียก startCountdown อีก
     } else {
       passwordEl.classList.add("is-invalid");
       document.getElementById("password-feedback").innerText = "ข้อมูลไม่ถูกต้อง";
@@ -190,7 +146,7 @@ function resetToLogin(){
   passwordEl.value = "";
   userformEl.classList.add("invisible");
 
-  clearInterval(countdownInterval); // ✅ ล้าง countdown
+  // ✅ ลบ clearInterval(countdownInterval);
 
   if(userEl.value){
     post({action:"deleteOnline", name:userEl.value});
