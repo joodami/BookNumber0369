@@ -202,12 +202,16 @@ function loadDashboard(){
 function checkSession(){
   if(!userEl.value) return;
 
+  // 🔒 ถ้ามี modal เปิดอยู่แล้ว ไม่ต้องเช็กซ้ำ
+  if (document.querySelector(".modal.show")) return;
+
   post({action:"checkOnline", name:userEl.value}).then(res=>{
     if(res.expired){
-      showSessionExpiredAndReset(); // ✅ ใช้ตัวที่มีจริง
+      showSessionExpiredAndReset();
     }
   });
 }
+
 
 /* -------------------------------------------------------- */
 
