@@ -16,12 +16,13 @@ body {
   flex: 1 0 auto;           /* ดัน footer ลงล่าง */
 }
 
-/* -------------------- Banner --------------------- */
 /* -------------------- Banner Full Width -------------------- */
 .banner-wrapper {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
+
+  margin-bottom: clamp(1.5rem, 4vw, 3rem); /* ระยะห่างสวยทุกจอ */
 }
 
 .banner-img {
