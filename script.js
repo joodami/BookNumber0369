@@ -19,7 +19,39 @@ const dashTodayEl = document.getElementById("dash-today");
 const dashOnlineEl = document.getElementById("dash-online");
 const loginSpinnerEl = document.getElementById("loginSpinner");
 
-/* Helper */
+// ------------------ Countdown ------------------
+let countdownInterval;
+const countdownContainer = document.createElement("div");
+countdownContainer.id = "countdown-container";
+countdownContainer.style = "font-weight:bold; color:#dc3545; margin-bottom:0.5rem; text-align:right;";
+const countdownEl = document.createElement("span");
+countdownEl.id = "countdown";
+countdownContainer.appendChild(countdownEl);
+userformEl.querySelector(".card-header").appendChild(countdownContainer);
+
+function startCountdown(minutes) {
+  let remaining = minutes * 60; // วินาที
+  countdownEl.innerText = formatTime(remaining);
+
+  clearInterval(countdownInterval);
+  countdownInterval = setInterval(() => {
+    remaining--;
+    countdownEl.innerText = formatTime(remaining);
+
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+      showSessionExpiredAndReset();
+    }
+  }, 1000);
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+
+// ------------------ Helper ------------------
 function post(data){
   return fetch(GAS_URL,{
     method:"POST",
@@ -27,7 +59,7 @@ function post(data){
   }).then(r=>r.json());
 }
 
-/* Login */
+// ------------------ Login ------------------
 function login(){
   const pass = passwordEl.value.trim();
   if(!pass){
@@ -46,6 +78,7 @@ function login(){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
       post({action:"addOnline", name:res[0][1]});
+      startCountdown(5); // ✅ เริ่มนับถอยหลัง 5 นาที
     } else {
       passwordEl.classList.add("is-invalid");
       document.getElementById("password-feedback").innerText = "ข้อมูลไม่ถูกต้อง";
@@ -56,7 +89,7 @@ function login(){
   });
 }
 
-/* Toggle Eye Icon */
+// ------------------ Toggle Password ------------------
 togglePassword.addEventListener("click", () => {
   const type = passwordEl.type === "password" ? "text" : "password";
   passwordEl.type = type;
@@ -66,7 +99,7 @@ togglePassword.addEventListener("click", () => {
   icon.classList.toggle("bi-eye-slash");
 });
 
-/* Validate User Form */
+// ------------------ Validate Form ------------------
 function validateForm(){
   let valid = true;
 
@@ -82,7 +115,7 @@ function validateForm(){
   return valid;
 }
 
-/* ------------------ 🔴 เพิ่มฟังก์ชันนี้ ------------------ */
+// ------------------ Modal / Session ------------------
 function showSessionExpiredAndReset(){
   const modal = new bootstrap.Modal(resultModalEl, {
     backdrop: 'static',
@@ -93,73 +126,17 @@ function showSessionExpiredAndReset(){
   modalSuccessEl.classList.add("d-none");
   modalErrorEl.classList.remove("d-none");
 
-  modalErrorEl.querySelector("h5").innerText =
-    "⏰ ใช้ครบ 5 นาที";
-  modalErrorEl.querySelector("p").innerText =
-    "กรุณาเข้าสู่ระบบใหม่";
+  modalErrorEl.querySelector("h5").innerText = "⏰ ใช้ครบ 5 นาที";
+  modalErrorEl.querySelector("p").innerText = "กรุณาเข้าสู่ระบบใหม่";
 
   modalErrorEl.querySelector("button").onclick = () => {
     modal.hide();
-    resetToLogin();   // ✅ กลับหน้า login ทันที
+    resetToLogin();
   };
 
   modal.show();
 }
 
-/* -------------------------------------------------------- */
-
-/* Submit Data */
-function submitData(){
-  if(!validateForm()) return;
-
-  // ✅ เปิด modal + loading ทันที
-  const modal = new bootstrap.Modal(resultModalEl, {
-    backdrop: 'static',
-    keyboard: false
-  });
-  modal.show();
-  modalLoading();
-
-  // 🔴 เช็ค session ก่อน
-  post({ action:"checkOnline", name:userEl.value }).then(res=>{
-    if(res.expired){
-      modal.hide();                 // ✅ ปิด loading ก่อน
-      showSessionExpiredAndReset(); // ✅ แจ้ง + กลับ login
-      return;
-    }
-
-    // 🔴 ค่อยเรียก addRecord
-    post({
-      action:"addRecord",
-      birthday: birthdayEl.value,
-      detail: detailEl.value,
-      department: departmentEl.value,
-      user: userEl.value
-    }).then(res=>{
-
-      // 🔴 หมดอายุ (เช่น login ซ้ำ)
-      if(res.error === "expired"){
-        modal.hide();
-        showSessionExpiredAndReset();
-        return;
-      }
-
-      // 🔴 ไม่ใช่คนแรกในคิว
-      if(res.error === "queue"){
-        modal.hide();
-        showQueueError();
-        return;
-      }
-
-      // ✅ สำเร็จ
-      showSuccess(res.bookno);
-      resetToLogin();
-    });
-  });
-}
-
-
-/* Modal / Reset / Dashboard / Session */
 function modalLoading(){
   modalLoadingEl.classList.remove("d-none");
   modalSuccessEl.classList.add("d-none");
@@ -177,6 +154,23 @@ function showError(){
   modalErrorEl.classList.remove("d-none");
 }
 
+function showQueueError(){
+  const modal = new bootstrap.Modal(resultModalEl);
+  modalLoadingEl.classList.add("d-none");
+  modalSuccessEl.classList.add("d-none");
+  modalErrorEl.classList.remove("d-none");
+
+  modalErrorEl.querySelector("h5").innerText = "กำจัดผู้ใช้งานครั้งละ 1 คน";
+  modalErrorEl.querySelector("p").innerText = "กรุณารอ 5 นาที แล้วเข้าสู่ระบบใหม่";
+
+  modalErrorEl.querySelector("button").onclick = () => {
+    modal.hide();
+    resetToLogin();
+  };
+
+  modal.show();
+}
+
 function resetToLogin(){
   birthdayEl.value = "";
   detailEl.value = "";
@@ -184,12 +178,59 @@ function resetToLogin(){
   passwordEl.value = "";
   userformEl.classList.add("invisible");
 
+  clearInterval(countdownInterval); // ✅ ล้าง countdown
+
   if(userEl.value){
     post({action:"deleteOnline", name:userEl.value});
   }
   userEl.value = "";
 }
 
+// ------------------ Submit ------------------
+function submitData(){
+  if(!validateForm()) return;
+
+  const modal = new bootstrap.Modal(resultModalEl, {
+    backdrop: 'static',
+    keyboard: false
+  });
+  modal.show();
+  modalLoading();
+
+  post({ action:"checkOnline", name:userEl.value }).then(res=>{
+    if(res.expired){
+      modal.hide();
+      showSessionExpiredAndReset();
+      return;
+    }
+
+    post({
+      action:"addRecord",
+      birthday: birthdayEl.value,
+      detail: detailEl.value,
+      department: departmentEl.value,
+      user: userEl.value
+    }).then(res=>{
+
+      if(res.error === "expired"){
+        modal.hide();
+        showSessionExpiredAndReset();
+        return;
+      }
+
+      if(res.error === "queue"){
+        modal.hide();
+        showQueueError();
+        return;
+      }
+
+      showSuccess(res.bookno);
+      resetToLogin();
+    });
+  });
+}
+
+// ------------------ Dashboard ------------------
 function loadDashboard(){
   post({action:"dashboard"}).then(d=>{
     dashTotalEl.innerText = d.total;
@@ -198,11 +239,8 @@ function loadDashboard(){
   });
 }
 
-/* ------------------ 🔴 แก้ checkSession ------------------ */
 function checkSession(){
   if(!userEl.value) return;
-
-  // 🔒 ถ้ามี modal เปิดอยู่แล้ว ไม่ต้องเช็กซ้ำ
   if (document.querySelector(".modal.show")) return;
 
   post({action:"checkOnline", name:userEl.value}).then(res=>{
@@ -212,9 +250,7 @@ function checkSession(){
   });
 }
 
-
-/* -------------------------------------------------------- */
-
+// ------------------ Event Listener ------------------
 document.addEventListener("DOMContentLoaded",()=>{
   loadDashboard();
   setInterval(loadDashboard,30000);
@@ -239,23 +275,3 @@ window.addEventListener("beforeunload", () => {
     );
   }
 });
-
-function showQueueError(){
-  const modal = new bootstrap.Modal(resultModalEl);
-
-  modalLoadingEl.classList.add("d-none");
-  modalSuccessEl.classList.add("d-none");
-  modalErrorEl.classList.remove("d-none");
-
-  modalErrorEl.querySelector("h5").innerText =
-    "กำจัดผู้ใช้งานครั้งละ 1 คน";
-  modalErrorEl.querySelector("p").innerText =
-    "กรุณารอ 5 นาที แล้วเข้าสู่ระบบใหม่";
-
-  modalErrorEl.querySelector("button").onclick = () => {
-    modal.hide();
-    resetToLogin();
-  };
-
-  modal.show();
-}
