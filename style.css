@@ -31,50 +31,39 @@ body {
   display: block;
 }
 
-/* -------- Dashboard Row -------- */
+/* ===== Dashboard FIX แนวนอน ===== */
 .dashboard-row {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;   /* ⭐ บังคับแนวนอน */
   justify-content: space-between;
-  flex-wrap: nowrap;          /* ⭐ ห้ามขึ้นบรรทัดใหม่ */
+  align-items: center;
+  gap: 1rem;
 }
 
-/* แต่ละช่อง */
 .dash-item {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;   /* ⭐ กันเรียงแนวตั้ง */
   align-items: center;
   gap: 0.5rem;
-  white-space: nowrap;        /* ⭐ กันข้อความตกบรรทัด */
+  white-space: nowrap;
 }
 
-/* ตัวคั่น */
-.dash-divider {
-  width: 1px;
-  height: 36px;
-  background-color: #dee2e6;
-  margin: 0 0.5rem;
+.dash-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
-/* ตัวเลข */
-.dash-number {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-/* ---------- Mobile ปรับให้ไม่ล้น ---------- */
+/* Mobile ปรับขนาด */
 @media (max-width: 576px) {
   .dash-number {
     font-size: 1.25rem;
   }
-
   .dash-icon {
     font-size: 1.2rem;
   }
-
-  .dash-item small {
-    font-size: 0.75rem;
-  }
 }
+
 
 
 /* ---------- Mobile ---------- */
