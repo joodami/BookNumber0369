@@ -26,11 +26,9 @@ body {
 }
 
 .banner-img {
-  width: 100%;
   height: clamp(140px, 22vw, 300px);
   object-fit: cover;
-  display: block;
-  border-radius: 0;
+  object-position: center top;
 }
 
 
