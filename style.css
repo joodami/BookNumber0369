@@ -13,12 +13,12 @@ body {
 .max-width-container { 
   max-width: 1200px; 
   width: 100%; 
-  /* flex: 1 0 auto; ลบออก เพราะเราจะใช้เฉพาะหน้า userform */
+  flex: 0 0 auto;  /* ⭐ แก้: ไม่ดัน footer ตอน login */
 }
 
-/* ---------- ดัน footer ลงเฉพาะตอนมี userform ---------- */
+/* ---------- ดัน footer เฉพาะเวลามี userform ---------- */
 body.has-userform .max-width-container {
-  flex: 1 0 auto;
+  flex: 1 0 auto;  /* ⭐ ให้ container ดัน footer ลงล่าง */
 }
 
 /* -------------------- Banner Full Width -------------------- */
