@@ -94,7 +94,7 @@ function showSessionExpiredAndReset(){
   modalSuccessEl.classList.add("d-none");
   modalErrorEl.classList.remove("d-none");
 
-  modalErrorEl.querySelector("h5").innerText = "⏰ ใช้ครบ 5 นาที";
+  modalErrorEl.querySelector("h5").innerText = "⏰ ใช้เวลาเกิน 5 นาที";
   modalErrorEl.querySelector("p").innerText = "กรุณาเข้าสู่ระบบใหม่";
 
   modalErrorEl.querySelector("button").onclick = () => {
