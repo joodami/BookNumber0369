@@ -27,10 +27,10 @@ body {
 
 .banner-img {
   width: 100%;
-  height: clamp(180px, 30vw, 420px); /* มือถือ / iPad / Desktop */
+  height: clamp(140px, 22vw, 300px);
   object-fit: cover;
   display: block;
-  border-radius: 0; /* ไม่มีโค้ง */
+  border-radius: 0;
 }
 
 
