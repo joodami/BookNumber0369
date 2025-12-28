@@ -45,8 +45,8 @@ function login(){
     if(res.length){
       userEl.value = res[0][1];
       userformEl.classList.remove("invisible");
+      document.body.classList.add("has-userform"); // ⭐ เพิ่ม
       post({action:"addOnline", name:res[0][1]});
-      // ✅ ไม่เรียก startCountdown อีก
     } else {
       passwordEl.classList.add("is-invalid");
       document.getElementById("password-feedback").innerText = "ข้อมูลไม่ถูกต้อง";
@@ -146,7 +146,7 @@ function resetToLogin(){
   passwordEl.value = "";
   userformEl.classList.add("invisible");
 
-  // ✅ ลบ clearInterval(countdownInterval);
+  document.body.classList.remove("has-userform"); // ⭐ เพิ่ม
 
   if(userEl.value){
     post({action:"deleteOnline", name:userEl.value});
