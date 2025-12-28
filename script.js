@@ -83,7 +83,7 @@ function validateForm(){
 }
 
 /* ------------------ 🔴 เพิ่มฟังก์ชันนี้ ------------------ */
-function showSessionExpired(){
+function showSessionExpiredAndReset(){
   const modal = new bootstrap.Modal(resultModalEl, {
     backdrop: 'static',
     keyboard: false
@@ -94,12 +94,14 @@ function showSessionExpired(){
   modalErrorEl.classList.remove("d-none");
 
   modalErrorEl.querySelector("h5").innerText =
-    "⏰ ใช้งานครบ 5 นาที";
+    "⏰ ใช้ครบ 5 นาที";
   modalErrorEl.querySelector("p").innerText =
     "กรุณาเข้าสู่ระบบใหม่";
 
-  const btn = modalErrorEl.querySelector("button");
-  btn.onclick = () => resetToLogin(); // ✅ reset หลังผู้ใช้กด
+  modalErrorEl.querySelector("button").onclick = () => {
+    modal.hide();
+    resetToLogin();   // ✅ กลับหน้า login ทันที
+  };
 
   modal.show();
 }
@@ -110,16 +112,14 @@ function showSessionExpired(){
 function submitData(){
   if(!validateForm()) return;
 
+  // 🔴 เช็ค session ก่อนทุกอย่าง
   post({ action:"checkOnline", name:userEl.value }).then(res=>{
     if(res.expired){
-      showSessionExpired();
+      showSessionExpiredAndReset();
       return;
     }
 
-    const modal = new bootstrap.Modal(resultModalEl);
-    modal.show();
-    modalLoading();
-
+    // 🔴 ค่อยเรียก addRecord
     post({
       action:"addRecord",
       birthday: birthdayEl.value,
@@ -128,33 +128,28 @@ function submitData(){
       user: userEl.value
     }).then(res=>{
 
-      // 🔴 หมดเวลา
+      // 🔴 หมดอายุ (กรณีชื่อซ้ำ)
       if(res.error === "expired"){
-        showSessionExpired();
+        showSessionExpiredAndReset();
         return;
       }
 
       // 🔴 ไม่ใช่คนแรกในคิว
       if(res.error === "queue"){
-        modalLoadingEl.classList.add("d-none");
-        modalErrorEl.classList.remove("d-none");
-
-        modalErrorEl.querySelector("h5").innerText =
-          "กำจัดผู้ใช้งานครั้งละ 1 คน";
-        modalErrorEl.querySelector("p").innerText =
-          "กรุณารอ 5 นาที แล้วเข้าสู่ระบบใหม่";
-
-        modalErrorEl.querySelector("button").onclick = () => {
-          resetToLogin();
-        };
+        showQueueError();
         return;
       }
 
+      // ✅ สำเร็จจริง ค่อยเปิด modal
+      const modal = new bootstrap.Modal(resultModalEl);
+      modal.show();
+      modalLoading();
       showSuccess(res.bookno);
       resetToLogin();
     });
   });
 }
+
 
 /* Modal / Reset / Dashboard / Session */
 function modalLoading(){
@@ -231,3 +226,23 @@ window.addEventListener("beforeunload", () => {
     );
   }
 });
+
+function showQueueError(){
+  const modal = new bootstrap.Modal(resultModalEl);
+
+  modalLoadingEl.classList.add("d-none");
+  modalSuccessEl.classList.add("d-none");
+  modalErrorEl.classList.remove("d-none");
+
+  modalErrorEl.querySelector("h5").innerText =
+    "กำจัดผู้ใช้งานครั้งละ 1 คน";
+  modalErrorEl.querySelector("p").innerText =
+    "กรุณารอ 5 นาที แล้วเข้าสู่ระบบใหม่";
+
+  modalErrorEl.querySelector("button").onclick = () => {
+    modal.hide();
+    resetToLogin();
+  };
+
+  modal.show();
+}
