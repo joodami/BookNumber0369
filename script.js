@@ -112,10 +112,19 @@ function showSessionExpiredAndReset(){
 function submitData(){
   if(!validateForm()) return;
 
-  // 🔴 เช็ค session ก่อนทุกอย่าง
+  // ✅ เปิด modal + loading ทันที
+  const modal = new bootstrap.Modal(resultModalEl, {
+    backdrop: 'static',
+    keyboard: false
+  });
+  modal.show();
+  modalLoading();
+
+  // 🔴 เช็ค session ก่อน
   post({ action:"checkOnline", name:userEl.value }).then(res=>{
     if(res.expired){
-      showSessionExpiredAndReset();
+      modal.hide();                 // ✅ ปิด loading ก่อน
+      showSessionExpiredAndReset(); // ✅ แจ้ง + กลับ login
       return;
     }
 
@@ -128,22 +137,21 @@ function submitData(){
       user: userEl.value
     }).then(res=>{
 
-      // 🔴 หมดอายุ (กรณีชื่อซ้ำ)
+      // 🔴 หมดอายุ (เช่น login ซ้ำ)
       if(res.error === "expired"){
+        modal.hide();
         showSessionExpiredAndReset();
         return;
       }
 
       // 🔴 ไม่ใช่คนแรกในคิว
       if(res.error === "queue"){
+        modal.hide();
         showQueueError();
         return;
       }
 
-      // ✅ สำเร็จจริง ค่อยเปิด modal
-      const modal = new bootstrap.Modal(resultModalEl);
-      modal.show();
-      modalLoading();
+      // ✅ สำเร็จ
       showSuccess(res.bookno);
       resetToLogin();
     });
@@ -196,10 +204,11 @@ function checkSession(){
 
   post({action:"checkOnline", name:userEl.value}).then(res=>{
     if(res.expired){
-      showSessionExpired();
+      showSessionExpiredAndReset(); // ✅ ใช้ตัวที่มีจริง
     }
   });
 }
+
 /* -------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded",()=>{
