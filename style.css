@@ -26,11 +26,10 @@ body {
 }
 
 .banner-img {
-  height: clamp(140px, 22vw, 300px);
-  object-fit: cover;
-  object-position: center top;
+  width: 100%;
+  height: auto;          /* ⭐ สำคัญ: ให้สูงตามสัดส่วนภาพ */
+  display: block;
 }
-
 
 /* ---------------- Dashboard -------------------- */
 .dashboard-wrap { 
