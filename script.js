@@ -94,18 +94,22 @@ function showSessionExpired(){
   modalErrorEl.classList.remove("d-none");
 
   modalErrorEl.querySelector("h5").innerText =
-    "⏰ ใช้เวลาเกิน 5 นาที!\nกรุณาเข้าสู่ระบบใหม่";
+    "⏰ ใช้งานครบ 5 นาที";
+  modalErrorEl.querySelector("p").innerText =
+    "กรุณาเข้าสู่ระบบใหม่";
+
+  const btn = modalErrorEl.querySelector("button");
+  btn.onclick = () => resetToLogin(); // ✅ reset หลังผู้ใช้กด
 
   modal.show();
-  resetToLogin();
 }
+
 /* -------------------------------------------------------- */
 
 /* Submit Data */
 function submitData(){
   if(!validateForm()) return;
 
-  // 🔴 เช็ค session ก่อนบันทึก
   post({ action:"checkOnline", name:userEl.value }).then(res=>{
     if(res.expired){
       showSessionExpired();
@@ -114,8 +118,8 @@ function submitData(){
 
     const modal = new bootstrap.Modal(resultModalEl);
     modal.show();
-
     modalLoading();
+
     post({
       action:"addRecord",
       birthday: birthdayEl.value,
@@ -123,11 +127,29 @@ function submitData(){
       department: departmentEl.value,
       user: userEl.value
     }).then(res=>{
-      if(res.error === "limit"){
-        showError();
-        resetToLogin();
+
+      // 🔴 หมดเวลา
+      if(res.error === "expired"){
+        showSessionExpired();
         return;
       }
+
+      // 🔴 ไม่ใช่คนแรกในคิว
+      if(res.error === "queue"){
+        modalLoadingEl.classList.add("d-none");
+        modalErrorEl.classList.remove("d-none");
+
+        modalErrorEl.querySelector("h5").innerText =
+          "กำจัดผู้ใช้งานครั้งละ 1 คน";
+        modalErrorEl.querySelector("p").innerText =
+          "กรุณารอ 5 นาที แล้วเข้าสู่ระบบใหม่";
+
+        modalErrorEl.querySelector("button").onclick = () => {
+          resetToLogin();
+        };
+        return;
+      }
+
       showSuccess(res.bookno);
       resetToLogin();
     });
@@ -158,7 +180,10 @@ function resetToLogin(){
   departmentEl.value = "";
   passwordEl.value = "";
   userformEl.classList.add("invisible");
-  post({action:"deleteOnline", name:userEl.value});
+
+  if(userEl.value){
+    post({action:"deleteOnline", name:userEl.value});
+  }
   userEl.value = "";
 }
 
