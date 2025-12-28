@@ -13,7 +13,12 @@ body {
 .max-width-container { 
   max-width: 1200px; 
   width: 100%; 
-  flex: 1 0 auto;           /* ดัน footer ลงล่าง */
+  /* flex: 1 0 auto; ลบออก เพราะเราจะใช้เฉพาะหน้า userform */
+}
+
+/* ---------- ดัน footer ลงเฉพาะตอนมี userform ---------- */
+body.has-userform .max-width-container {
+  flex: 1 0 auto;
 }
 
 /* -------------------- Banner Full Width -------------------- */
@@ -64,8 +69,6 @@ body {
   }
 }
 
-
-
 /* ---------- Mobile ---------- */
 @media (max-width: 576px) {
   .dashboard-bar {
@@ -80,7 +83,6 @@ body {
     font-size: 1.3rem;
   }
 }
-
 
 /* ------------------ Form Card ------------------- */
 .form-card { 
@@ -133,6 +135,7 @@ textarea.is-invalid ~ .invalid-feedback {
   width: 100%;     /* ให้กว้างเต็มหน้า */
   text-align: center;
   padding: 1rem 0;
+  margin-top: 2rem; /* ⭐ เพิ่มระยะห่างเล็กน้อยระหว่างฟอร์มกับ footer */
 }
 
 /* ------------------ Responsive ------------------ */
