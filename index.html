@@ -24,35 +24,37 @@
 <!-- Container หลัก -->
 <div class="container-fluid px-2 px-md-4 text-center flex-grow-1 max-width-container">
 
-  <!-- Dashboard -->
-  <div class="dashboard-wrap">
-    <div class="row g-3 justify-content-center">
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h6>📊 ทั้งหมด</h6>
-            <h3 id="dash-total">0</h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h6>📅 วันนี้</h6>
-            <h3 id="dash-today">0</h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h6>👤 ออนไลน์</h6>
-            <h3 id="dash-online">0</h3>
-          </div>
-        </div>
-      </div>
+<!-- Dashboard -->
+<div class="dashboard-bar shadow-sm rounded-4">
+  <div class="dash-item">
+    <span class="dash-icon">📊</span>
+    <div>
+      <small>ทั้งหมด</small>
+      <div class="dash-number" id="dash-total">0</div>
     </div>
   </div>
+
+  <div class="dash-divider"></div>
+
+  <div class="dash-item">
+    <span class="dash-icon">📅</span>
+    <div>
+      <small>วันนี้</small>
+      <div class="dash-number" id="dash-today">0</div>
+    </div>
+  </div>
+
+  <div class="dash-divider"></div>
+
+  <div class="dash-item">
+    <span class="dash-icon">👤</span>
+    <div>
+      <small>ออนไลน์</small>
+      <div class="dash-number" id="dash-online">0</div>
+    </div>
+  </div>
+</div>
+
 
   <!-- Login Card -->
   <div class="card form-card shadow-sm rounded-4">
