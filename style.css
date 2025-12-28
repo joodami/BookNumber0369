@@ -31,10 +31,58 @@ body {
   display: block;
 }
 
-/* ---------------- Dashboard -------------------- */
-.dashboard-wrap { 
-  margin-bottom: 2rem; 
+/* ---------------- Dashboard Bar ---------------- */
+.dashboard-bar {
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.dash-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dash-icon {
+  font-size: 1.6rem;
+}
+
+.dash-item small {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.dash-number {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.dash-divider {
+  width: 1px;
+  height: 36px;
+  background: #dee2e6;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 576px) {
+  .dashboard-bar {
+    padding: 0.75rem;
+  }
+
+  .dash-icon {
+    font-size: 1.3rem;
+  }
+
+  .dash-number {
+    font-size: 1.3rem;
+  }
+}
+
 
 /* ------------------ Form Card ------------------- */
 .form-card { 
