@@ -58,3 +58,7 @@ body {
   padding: 1rem 0;
   flex-shrink: 0;
 }
+
+.modal-icon {
+  font-size: 3rem;
+}
