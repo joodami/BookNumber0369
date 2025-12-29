@@ -49,10 +49,11 @@ body {
 }
 
 /* ------------------ Form Card ------------------- */
+/* ⭐⭐⭐ แก้ตรงนี้ ⭐⭐⭐ */
 .form-card {
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;   /* ❌ ไม่ใช้ auto ทุกด้าน */
 }
 
 .card {
