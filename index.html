@@ -10,9 +10,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
 
-  <!-- Banner เต็มจอ -->
+<body>
+
+<!-- Banner -->
 <div class="banner-wrapper">
   <img
     src="https://github.com/joodami/school-assets/blob/main/banner%20Book0369.jpg?raw=true"
@@ -21,42 +22,41 @@
   >
 </div>
 
-<!-- Container หลัก -->
+<!-- ================= MAIN ================= -->
+<main class="main-wrapper">
+
 <div class="container-fluid px-2 px-md-4 text-center max-width-container">
 
-<!-- Dashboard -->
-<div class="card shadow-sm rounded-4 mb-4">
-  <div class="card-body">
-
-    <div class="dashboard-row">
-      <div class="dash-item">
-        <span class="dash-icon">📊</span>
-        <div class="dash-text">
-          <small>ทั้งหมด</small>
-          <div class="dash-number" id="dash-total">2</div>
+  <!-- Dashboard -->
+  <div class="card shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+      <div class="dashboard-row">
+        <div class="dash-item">
+          <span class="dash-icon">📊</span>
+          <div class="dash-text">
+            <small>ทั้งหมด</small>
+            <div class="dash-number" id="dash-total">2</div>
+          </div>
         </div>
-      </div>
 
-      <div class="dash-item">
-        <span class="dash-icon">📅</span>
-        <div class="dash-text">
-          <small>วันนี้</small>
-          <div class="dash-number" id="dash-today">1</div>
+        <div class="dash-item">
+          <span class="dash-icon">📅</span>
+          <div class="dash-text">
+            <small>วันนี้</small>
+            <div class="dash-number" id="dash-today">1</div>
+          </div>
         </div>
-      </div>
 
-      <div class="dash-item">
-        <span class="dash-icon">👤</span>
-        <div class="dash-text">
-          <small>ออนไลน์</small>
-          <div class="dash-number" id="dash-online">0</div>
+        <div class="dash-item">
+          <span class="dash-icon">👤</span>
+          <div class="dash-text">
+            <small>ออนไลน์</small>
+            <div class="dash-number" id="dash-online">0</div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
-</div>
-
 
   <!-- Login Card -->
   <div class="card form-card shadow-sm rounded-4">
@@ -64,39 +64,38 @@
     <div class="card-body">
       <div class="mb-3 position-relative">
         <input type="password" id="password" class="form-control mb-1" placeholder="กรอกหมายเลขโทรศัพท์">
-        <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary" style="cursor:pointer; z-index:2;">
+        <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary">
           <i class="bi bi-eye"></i>
         </span>
         <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
       </div>
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
+
       <div id="loginSpinner" class="d-none text-center mt-2">
-        <div class="spinner-border text-primary mb-3" role="status" style="width:2rem;height:2rem">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
+        <div class="spinner-border text-primary mb-3" style="width:2rem;height:2rem"></div>
+        <p class="small">กำลังเข้าสู่ระบบ...</p>
       </div>
     </div>
   </div>
-  
+
   <!-- User Form -->
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
 
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>วันที่</label>
         <input type="date" id="birthday" class="form-control">
         <div class="invalid-feedback" id="birthday-feedback">กรุณากรอกวันที่</div>
       </div>
 
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>เรื่อง</label>
         <textarea id="detail" class="form-control"></textarea>
         <div class="invalid-feedback" id="detail-feedback">กรุณากรอกเรื่อง</div>
       </div>
 
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>ผู้ปฏิบัติ</label>
         <textarea id="department" class="form-control"></textarea>
         <div class="invalid-feedback" id="department-feedback">กรุณากรอกผู้ปฏิบัติ</div>
@@ -107,35 +106,15 @@
         <input id="user" class="form-control" disabled>
       </div>
 
-      <button class="btn btn-success w-100" id="btn-submit">รับเลขบันทึกข้อความ</button>
+      <button class="btn btn-success w-100" id="btn-submit">
+        รับเลขบันทึกข้อความ
+      </button>
+
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="resultModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-      <div class="modal-content rounded-4 text-center p-3">
-        <div class="modal-body" id="modal-loading">
-          <div class="spinner-border text-primary mb-3"></div>
-          <p>กำลังออกเลขบันทึกข้อความ</p>
-        </div>
-        <div class="modal-body d-none" id="modal-success">
-          <div class="fs-1 text-success mb-2">✅</div>
-          <h5 class="text-success">ออกเลขเรียบร้อยแล้ว</h5>
-          <p id="show-bookno" class="fw-bold"></p>
-          <button class="btn btn-success w-50" data-bs-dismiss="modal">ตกลง</button>
-        </div>
-        <div class="modal-body d-none" id="modal-error">
-          <div class="fs-1 text-danger mb-2">⚠️</div>
-          <h5 class="text-danger">จำกัดผู้ใช้งานไม่เกินครั้งละ 1 คน</h5>
-          <p>กรุณารอ 5 นาทีแล้วเข้าสู่ระบบอีกครั้ง</p>
-          <button class="btn btn-danger w-50" data-bs-dismiss="modal">ตกลง</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div> <!-- ปิด container -->
+</div>
+</main>
 
 <!-- Footer -->
 <footer id="main-footer">
