@@ -1,78 +1,32 @@
-/* ---------------------- Body ---------------------- */
 body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* ------------------ Container -------------------- */
 .max-width-container {
   max-width: 1200px;
   width: 100%;
+  flex: 1 0 auto;
 }
 
-/* -------------------- Banner -------------------- */
-.banner-wrapper {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  overflow: hidden;
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
-}
-
-.banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ===== Dashboard FIX แนวนอน ===== */
-.dashboard-row {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.dash-item {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-}
-
-.dash-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-/* ------------------ Form Card ------------------- */
-/* ⭐⭐⭐ แก้ตรงนี้ ⭐⭐⭐ */
 .form-card {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;   /* ❌ ไม่ใช้ auto ทุกด้าน */
+  margin: auto;
 }
 
-.card {
-  border-radius: 12px;
-}
-
-/* -------------------- Footer --------------------- */
 #main-footer {
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
   font-size: 0.875rem;
   color: #6c757d;
 
-  width: 100%;
   text-align: center;
   padding: 1rem 0;
-}
-
-/* ------------------ Responsive ------------------ */
-@media (max-width: 768px) {
-  body { padding: 0.25rem; }
+  flex-shrink: 0;
 }
