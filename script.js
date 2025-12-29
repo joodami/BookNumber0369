@@ -114,8 +114,10 @@ function modalLoading(){
 function showSuccess(bookno){
   modalLoadingEl.classList.add("d-none");
   modalSuccessEl.classList.remove("d-none");
+  // แก้ตรงนี้ ไม่ต่อ /2569 อีกครั้ง
   showBooknoEl.innerText = `เลขบันทึกข้อความ = ${bookno}`;
 }
+
 
 function showError(){
   modalLoadingEl.classList.add("d-none");
