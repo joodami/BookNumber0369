@@ -2,7 +2,6 @@ body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
   padding: 0.5rem;
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -14,6 +13,36 @@ body {
   flex: 1 0 auto;
 }
 
+.banner-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.banner-img {
+  width: 100%;
+  display: block;
+}
+
+.dashboard-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dash-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  white-space: nowrap;
+}
+
+.dash-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
 .form-card {
   width: 100%;
   max-width: 1200px;
@@ -21,11 +50,10 @@ body {
 }
 
 #main-footer {
-  background-color: #f8f9fa;
+  background: #f8f9fa;
   border-top: 1px solid #dee2e6;
-  font-size: 0.875rem;
+  font-size: .875rem;
   color: #6c757d;
-
   text-align: center;
   padding: 1rem 0;
   flex-shrink: 0;
