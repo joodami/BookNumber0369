@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<!-- Banner เต็มจอ -->
+<!-- Banner -->
 <div class="banner-wrapper">
   <img
     src="https://github.com/joodami/school-assets/blob/main/banner%20Book0369.jpg?raw=true"
@@ -22,13 +22,12 @@
   >
 </div>
 
-<!-- Container หลัก -->
+<!-- Container -->
 <div class="container-fluid px-2 px-md-4 text-center max-width-container">
 
   <!-- Dashboard -->
   <div class="card shadow-sm rounded-4 mb-4">
     <div class="card-body">
-
       <div class="dashboard-row">
         <div class="dash-item">
           <span class="dash-icon">📊</span>
@@ -37,7 +36,6 @@
             <div class="dash-number" id="dash-total">2</div>
           </div>
         </div>
-
         <div class="dash-item">
           <span class="dash-icon">📅</span>
           <div class="dash-text">
@@ -45,7 +43,6 @@
             <div class="dash-number" id="dash-today">1</div>
           </div>
         </div>
-
         <div class="dash-item">
           <span class="dash-icon">👤</span>
           <div class="dash-text">
@@ -54,11 +51,10 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- Login Card -->
+  <!-- Login -->
   <div class="card form-card shadow-sm rounded-4">
     <div class="card-header fw-bold">ลงชื่อเข้าใช้ระบบขอเลขบันทึกข้อความ</div>
     <div class="card-body">
@@ -71,15 +67,10 @@
         </span>
         <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
       </div>
-
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
-
       <div id="loginSpinner" class="d-none text-center mt-2">
-        <div class="spinner-border text-primary mb-3"
-             role="status" style="width:2rem;height:2rem">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
+        <div class="spinner-border text-primary mb-3" style="width:2rem;height:2rem"></div>
+        <p class="small">กำลังเข้าสู่ระบบ...</p>
       </div>
     </div>
   </div>
@@ -88,43 +79,34 @@
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
-
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>วันที่</label>
         <input type="date" id="birthday" class="form-control">
-        <div class="invalid-feedback" id="birthday-feedback">กรุณากรอกวันที่</div>
       </div>
-
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>เรื่อง</label>
         <textarea id="detail" class="form-control"></textarea>
-        <div class="invalid-feedback" id="detail-feedback">กรุณากรอกเรื่อง</div>
       </div>
-
-      <div class="mb-3 position-relative">
+      <div class="mb-3">
         <label>ผู้ปฏิบัติ</label>
         <textarea id="department" class="form-control"></textarea>
-        <div class="invalid-feedback" id="department-feedback">กรุณากรอกผู้ปฏิบัติ</div>
       </div>
-
       <div class="mb-3">
         <label>ผู้ใช้</label>
         <input id="user" class="form-control" disabled>
       </div>
-
-      <button class="btn btn-success w-100" id="btn-submit">
+      <button type="button" class="btn btn-success w-100" id="btn-submit">
         รับเลขบันทึกข้อความ
       </button>
-
     </div>
   </div>
 
-  <!-- ✅ Footer (ย้ายมาไว้ตรงนี้เท่านั้น) -->
-  <footer id="main-footer" class="mt-4">
-    <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
-  </footer>
+</div>
 
-</div> <!-- ปิด container -->
+<!-- Footer -->
+<footer id="main-footer">
+  <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js?v=123"></script>
