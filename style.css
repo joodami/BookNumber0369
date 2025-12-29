@@ -2,25 +2,13 @@
 body {
   font-family: 'Prompt', sans-serif;
   background: linear-gradient(180deg,#edf2f6,#dee7ee);
-  margin: 0;
-
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* --------- MAIN (ดัน footer) --------- */
-.main-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 0.5rem;
 }
 
 /* ------------------ Container -------------------- */
 .max-width-container {
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
 }
 
 /* -------------------- Banner -------------------- */
@@ -28,13 +16,36 @@ body {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .banner-img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* ===== Dashboard FIX แนวนอน ===== */
+.dashboard-row {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dash-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.dash-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
 /* ------------------ Form Card ------------------- */
@@ -44,13 +55,23 @@ body {
   margin: auto;
 }
 
+.card {
+  border-radius: 12px;
+}
+
 /* -------------------- Footer --------------------- */
 #main-footer {
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
-  color: #6c757d;
   font-size: 0.875rem;
+  color: #6c757d;
 
+  width: 100%;
   text-align: center;
   padding: 1rem 0;
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+  body { padding: 0.25rem; }
 }
