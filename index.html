@@ -15,11 +15,8 @@
 
 <!-- Banner -->
 <div class="banner-wrapper">
-  <img
-    src="https://github.com/joodami/school-assets/blob/main/banner%20Book0369.jpg?raw=true"
-    alt="banner"
-    class="banner-img"
-  >
+  <img src="https://github.com/joodami/school-assets/blob/main/banner%20Book0369.jpg?raw=true"
+       class="banner-img" alt="banner">
 </div>
 
 <!-- Container -->
@@ -33,14 +30,14 @@
           <span class="dash-icon">📊</span>
           <div class="dash-text">
             <small>ทั้งหมด</small>
-            <div class="dash-number" id="dash-total">2</div>
+            <div class="dash-number" id="dash-total">0</div>
           </div>
         </div>
         <div class="dash-item">
           <span class="dash-icon">📅</span>
           <div class="dash-text">
             <small>วันนี้</small>
-            <div class="dash-number" id="dash-today">1</div>
+            <div class="dash-number" id="dash-today">0</div>
           </div>
         </div>
         <div class="dash-item">
@@ -59,18 +56,20 @@
     <div class="card-header fw-bold">ลงชื่อเข้าใช้ระบบขอเลขบันทึกข้อความ</div>
     <div class="card-body">
       <div class="mb-3 position-relative">
-        <input type="password" id="password" class="form-control mb-1" placeholder="กรอกหมายเลขโทรศัพท์">
+        <input type="password" id="password" class="form-control" placeholder="กรอกหมายเลขโทรศัพท์">
         <span id="togglePassword"
-              class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"
-              style="cursor:pointer; z-index:2;">
+              class="position-absolute top-50 end-0 translate-middle-y me-3"
+              style="cursor:pointer;">
           <i class="bi bi-eye"></i>
         </span>
         <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
       </div>
+
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
-      <div id="loginSpinner" class="d-none text-center mt-2">
-        <div class="spinner-border text-primary mb-3" style="width:2rem;height:2rem"></div>
-        <p class="small">กำลังเข้าสู่ระบบ...</p>
+
+      <div id="loginSpinner" class="d-none text-center mt-3">
+        <div class="spinner-border text-primary"></div>
+        <p class="small mt-2">กำลังเข้าสู่ระบบ...</p>
       </div>
     </div>
   </div>
@@ -79,25 +78,31 @@
   <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 invisible">
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
+
       <div class="mb-3">
         <label>วันที่</label>
         <input type="date" id="birthday" class="form-control">
       </div>
+
       <div class="mb-3">
         <label>เรื่อง</label>
         <textarea id="detail" class="form-control"></textarea>
       </div>
+
       <div class="mb-3">
         <label>ผู้ปฏิบัติ</label>
         <textarea id="department" class="form-control"></textarea>
       </div>
+
       <div class="mb-3">
         <label>ผู้ใช้</label>
         <input id="user" class="form-control" disabled>
       </div>
+
       <button type="button" class="btn btn-success w-100" id="btn-submit">
         รับเลขบันทึกข้อความ
       </button>
+
     </div>
   </div>
 
@@ -107,6 +112,32 @@
 <footer id="main-footer">
   <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
 </footer>
+
+<!-- ===== Modal ===== -->
+<div class="modal fade" id="resultModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+
+      <div id="modal-loading">
+        <div class="spinner-border text-primary mb-3"></div>
+        <p>กำลังออกเลขบันทึกข้อความ<br>โปรดรอ...</p>
+      </div>
+
+      <div id="modal-success" class="d-none">
+        <h5 class="text-success">ออกเลขสำเร็จ</h5>
+        <p id="show-bookno"></p>
+        <button class="btn btn-primary mt-2" data-bs-dismiss="modal">ปิด</button>
+      </div>
+
+      <div id="modal-error" class="d-none">
+        <h5 class="text-danger">เกิดข้อผิดพลาด</h5>
+        <p></p>
+        <button class="btn btn-secondary mt-2">ปิด</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js?v=123"></script>
