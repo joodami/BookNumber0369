@@ -13,7 +13,7 @@
 
 <body>
 
-<!-- Banner -->
+<!-- Banner เต็มจอ -->
 <div class="banner-wrapper">
   <img
     src="https://github.com/joodami/school-assets/blob/main/banner%20Book0369.jpg?raw=true"
@@ -22,14 +22,13 @@
   >
 </div>
 
-<!-- ================= MAIN ================= -->
-<main class="main-wrapper">
-
+<!-- Container หลัก -->
 <div class="container-fluid px-2 px-md-4 text-center max-width-container">
 
   <!-- Dashboard -->
   <div class="card shadow-sm rounded-4 mb-4">
     <div class="card-body">
+
       <div class="dashboard-row">
         <div class="dash-item">
           <span class="dash-icon">📊</span>
@@ -55,6 +54,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -64,16 +64,22 @@
     <div class="card-body">
       <div class="mb-3 position-relative">
         <input type="password" id="password" class="form-control mb-1" placeholder="กรอกหมายเลขโทรศัพท์">
-        <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary">
+        <span id="togglePassword"
+              class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"
+              style="cursor:pointer; z-index:2;">
           <i class="bi bi-eye"></i>
         </span>
         <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
       </div>
+
       <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
 
       <div id="loginSpinner" class="d-none text-center mt-2">
-        <div class="spinner-border text-primary mb-3" style="width:2rem;height:2rem"></div>
-        <p class="small">กำลังเข้าสู่ระบบ...</p>
+        <div class="spinner-border text-primary mb-3"
+             role="status" style="width:2rem;height:2rem">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="small mt-1">กำลังเข้าสู่ระบบ...</p>
       </div>
     </div>
   </div>
@@ -83,19 +89,19 @@
     <div class="card-header fw-bold">บันทึกข้อมูล</div>
     <div class="card-body text-start">
 
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label>วันที่</label>
         <input type="date" id="birthday" class="form-control">
         <div class="invalid-feedback" id="birthday-feedback">กรุณากรอกวันที่</div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label>เรื่อง</label>
         <textarea id="detail" class="form-control"></textarea>
         <div class="invalid-feedback" id="detail-feedback">กรุณากรอกเรื่อง</div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label>ผู้ปฏิบัติ</label>
         <textarea id="department" class="form-control"></textarea>
         <div class="invalid-feedback" id="department-feedback">กรุณากรอกผู้ปฏิบัติ</div>
@@ -113,13 +119,12 @@
     </div>
   </div>
 
-</div>
-</main>
+  <!-- ✅ Footer (ย้ายมาไว้ตรงนี้เท่านั้น) -->
+  <footer id="main-footer" class="mt-4">
+    <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
+  </footer>
 
-<!-- Footer -->
-<footer id="main-footer">
-  <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
-</footer>
+</div> <!-- ปิด container -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js?v=123"></script>
