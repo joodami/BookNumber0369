@@ -10,62 +10,90 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-        :root { 
-            /* โทนสีน้ำเงินพรีเมียม เหมือนระบบหนังสือออก */
-            --primary: #1a5276; 
-            --accent: #2980b9; 
-            --bg: #f1f5f9; 
-            --main-gradient: linear-gradient(135deg, #1a5276, #2980b9);
+   <style>
+    :root { 
+        --primary: #1a5276; 
+        --accent: #2980b9; 
+        --bg: #f1f5f9; 
+        --main-gradient: linear-gradient(135deg, #1a5276, #2980b9);
+    }
+    
+    body { 
+        font-family: 'Prompt', sans-serif; 
+        background-color: var(--bg); 
+        color: #2c3e50; 
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0; padding: 0;
+    }
+
+    /* --- App Header: ล็อกมาตรฐานเดียวกับระบบสืบค้น --- */
+    .app-header {
+        background: #ffffff;
+        text-align: center;
+        border-bottom: 4px solid var(--primary);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        flex-shrink: 0;
+    }
+
+    /* สไตล์สำหรับมือถือ (จอเล็กกว่า 1023px) */
+    @media (max-width: 1023px) {
+        .app-header { padding: 8px 10px 0 10px; }
+        .school-logo { height: 40px; margin-bottom: 2px; }
+        .app-title { 
+            font-size: 1.2rem !important; 
+            line-height: 1.1; 
+            color: var(--primary); 
+            font-weight: 700; 
+            margin: 0; 
+            white-space: nowrap; 
         }
-        
-        body { 
-            font-family: 'Prompt', sans-serif; 
-            background-color: var(--bg); 
-            color: #2c3e50; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .app-subtitle { 
+            font-size: 0.75rem !important; 
+            margin-top: 2px; 
+            margin-bottom: 5px; 
+            font-weight: 600; 
+            color: #475569; 
+            white-space: nowrap; 
         }
+    }
 
-        /* --- Header --- */
-        .app-header {
-            background: #ffffff;
-            text-align: center;
-            border-bottom: 4px solid var(--primary);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            padding: 10px 20px 5px 20px;
-            margin-bottom: 20px;
-        }
-        .school-logo { height: 50px; margin-bottom: 5px; }
-        .app-title { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin: 0; }
-        .app-subtitle { font-size: 0.9rem; color: #64748b; font-weight: 600; }
+    /* สไตล์สำหรับคอมพิวเตอร์ (จอใหญ่กว่า 1024px) */
+    @media (min-width: 1024px) {
+        .app-header { padding: 10px 20px 5px 20px; } 
+        .school-logo { height: 55px; margin-bottom: 5px; }
+        .app-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 0; }
+        .app-subtitle { font-size: 0.95rem; margin-top: 2px; margin-bottom: 5px; color: #475569; }
+    }
 
-        /* --- Dashboard --- */
-        .dash-card { border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
-        .dashboard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .dash-item { text-align: center; padding: 10px; border-right: 1px solid #eee; }
-        .dash-item:last-child { border-right: none; }
-        .dash-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
-        .dash-number { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
-        .dash-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; }
+    /* --- Dashboard UI --- */
+    .dash-card { border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; margin: 20px 15px; }
+    .dashboard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .dash-item { text-align: center; padding: 10px; border-right: 1px solid #eee; }
+    .dash-item:last-child { border-right: none; }
+    .dash-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+    .dash-number { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+    .dash-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; }
 
-        /* --- Layout & Form --- */
-        .max-width-container { max-width: 1200px; margin: 0 auto; width: 100%; }
-        .form-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); background: white; overflow: hidden; }
-        .card-header-custom { background: var(--main-gradient); color: white; padding: 15px; font-weight: 600; text-align: center; }
-        .form-control, .form-select { border-radius: 12px; padding: 12px; border: 2px solid #f1f5f9; background: #f8fafc; }
-        .form-control:focus { border-color: var(--accent); box-shadow: none; background: #fff; }
-        label { font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #475569; }
+    /* --- Form Design --- */
+    .max-width-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+    .form-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); background: white; overflow: hidden; margin: 0 15px 30px 15px; }
+    .card-header-custom { background: var(--main-gradient); color: white; padding: 15px; font-weight: 600; text-align: center; }
+    .form-control, .form-select { border-radius: 12px; padding: 12px; border: 2px solid #f1f5f9; background: #f8fafc; }
+    .form-control:focus { border-color: var(--accent); box-shadow: none; background: #fff; }
+    label { font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #475569; display: block; text-align: left; }
 
-        .btn-primary-custom { background: var(--primary); border: none; border-radius: 12px; padding: 12px; font-weight: 600; transition: 0.3s; color: white; }
-        .btn-primary-custom:hover { background: var(--accent); transform: translateY(-2px); color: white; }
-        .btn-success-custom { background: #15803d; border: none; border-radius: 12px; padding: 15px; color: white; font-weight: 600; transition: 0.3s; }
-        .btn-success-custom:hover { background: #166534; transform: translateY(-2px); }
+    .btn-primary-custom { background: var(--primary); border: none; border-radius: 12px; padding: 12px; font-weight: 600; transition: 0.3s; color: white; }
+    .btn-primary-custom:hover { background: var(--accent); transform: translateY(-2px); color: white; }
+    .btn-success-custom { background: #15803d; border: none; border-radius: 12px; padding: 15px; color: white; font-weight: 600; transition: 0.3s; }
+    .btn-success-custom:hover { background: #166534; transform: translateY(-2px); }
 
-        .modal-content { border-radius: 25px; border: none; }
-        footer { margin-top: auto; padding: 20px; text-align: center; font-size: 0.8rem; color: #94a3b8; }
-    </style>
+    /* --- Modal --- */
+    .modal-content { border-radius: 25px; border: none; }
+    
+    footer { margin-top: auto; padding: 20px; text-align: center; font-size: 0.8rem; color: #94a3b8; }
+</style>
 </head>
 <body>
 
