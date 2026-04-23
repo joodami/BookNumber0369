@@ -12,130 +12,133 @@
 
     <style>
         :root { 
-            /* โทนสี Slate Navy สำหรับบันทึกข้อความ */
-            --primary: #334155; 
-            --accent: #475569; 
-            --bg: #f8fafc; 
-            --main-gradient: linear-gradient(135deg, #1e293b, #334155);
+            /* โทนสีน้ำเงินพรีเมียม เหมือนระบบหนังสือออก */
+            --primary: #1a5276; 
+            --accent: #2980b9; 
+            --bg: #f1f5f9; 
+            --main-gradient: linear-gradient(135deg, #1a5276, #2980b9);
         }
         
         body { 
             font-family: 'Prompt', sans-serif; 
             background-color: var(--bg); 
-            color: #1e293b; 
+            color: #2c3e50; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        /* --- Header --- */
         .app-header {
             background: #ffffff;
             text-align: center;
             border-bottom: 4px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            padding: 15px 20px 10px 20px;
-            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 10px 20px 5px 20px;
+            margin-bottom: 20px;
         }
-        .school-logo { height: 55px; margin-bottom: 8px; }
-        .app-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 0; letter-spacing: 1px; }
-        .app-subtitle { font-size: 0.95rem; color: #64748b; font-weight: 600; margin-top: 2px; }
+        .school-logo { height: 50px; margin-bottom: 5px; }
+        .app-title { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin: 0; }
+        .app-subtitle { font-size: 0.9rem; color: #64748b; font-weight: 600; }
 
-        .dash-card { border: none; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: white; border: 1px solid rgba(0,0,0,0.03); }
-        .dashboard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        .dash-item { text-align: center; padding: 15px; border-right: 1px solid #f1f5f9; }
+        /* --- Dashboard --- */
+        .dash-card { border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
+        .dashboard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .dash-item { text-align: center; padding: 10px; border-right: 1px solid #eee; }
         .dash-item:last-child { border-right: none; }
-        .dash-icon { font-size: 1.8rem; display: block; margin-bottom: 5px; filter: grayscale(0.2); }
-        .dash-number { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
-        .dash-label { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
+        .dash-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+        .dash-number { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .dash-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; }
 
+        /* --- Layout & Form --- */
         .max-width-container { max-width: 1200px; margin: 0 auto; width: 100%; }
-        .form-card { border: none; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); background: white; overflow: hidden; }
-        .card-header-custom { background: var(--main-gradient); color: white; padding: 20px; font-weight: 600; text-align: center; font-size: 1.1rem; }
-        .form-control, .form-select { border-radius: 14px; padding: 14px; border: 2px solid #f1f5f9; background: #f8fafc; transition: 0.2s; }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(51, 65, 85, 0.1); background: #fff; }
-        label { font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #334155; display: block; }
+        .form-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); background: white; overflow: hidden; }
+        .card-header-custom { background: var(--main-gradient); color: white; padding: 15px; font-weight: 600; text-align: center; }
+        .form-control, .form-select { border-radius: 12px; padding: 12px; border: 2px solid #f1f5f9; background: #f8fafc; }
+        .form-control:focus { border-color: var(--accent); box-shadow: none; background: #fff; }
+        label { font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #475569; }
 
-        .btn-primary-custom { background: var(--primary); border: none; border-radius: 14px; padding: 14px; font-weight: 600; transition: 0.3s; color: white; }
-        .btn-primary-custom:hover { background: #0f172a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .btn-success-custom { background: #059669; border: none; border-radius: 14px; padding: 18px; color: white; font-weight: 600; transition: 0.3s; font-size: 1.1rem; }
-        .btn-success-custom:hover { background: #047857; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.2); }
+        .btn-primary-custom { background: var(--primary); border: none; border-radius: 12px; padding: 12px; font-weight: 600; transition: 0.3s; color: white; }
+        .btn-primary-custom:hover { background: var(--accent); transform: translateY(-2px); color: white; }
+        .btn-success-custom { background: #15803d; border: none; border-radius: 12px; padding: 15px; color: white; font-weight: 600; transition: 0.3s; }
+        .btn-success-custom:hover { background: #166534; transform: translateY(-2px); }
 
-        .modal-content { border-radius: 30px; border: none; }
-        footer { margin-top: auto; padding: 25px; text-align: center; font-size: 0.85rem; color: #64748b; font-weight: 500; }
+        .modal-content { border-radius: 25px; border: none; }
+        footer { margin-top: auto; padding: 20px; text-align: center; font-size: 0.8rem; color: #94a3b8; }
     </style>
 </head>
 <body>
 
 <header class="app-header">
     <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
-    <h1 class="app-title">PS-Memo</h1>
+    <h1 class="app-title">PS-Sarabun</h1>
     <p class="app-subtitle">ระบบขอเลขบันทึกข้อความ | โรงเรียนพิมานพิทยาสรรค์</p>
 </header>
 
-<div class="container max-width-container pb-5">
+<div class="container max-width-container pb-4">
     <div class="card dash-card mb-4">
         <div class="card-body">
             <div class="dashboard-row">
                 <div class="dash-item">
-                    <span class="dash-icon">📈</span>
+                    <span class="dash-icon">📊</span>
                     <div class="dash-number" id="dash-total">0</div>
-                    <div class="dash-label">สรุปยอดรวม</div>
+                    <div class="dash-label">ทั้งหมด</div>
                 </div>
                 <div class="dash-item">
-                    <span class="dash-icon">📝</span>
+                    <span class="dash-icon">📅</span>
                     <div class="dash-number" id="dash-today">0</div>
-                    <div class="dash-label">รายการวันนี้</div>
+                    <div class="dash-label">วันนี้</div>
                 </div>
                 <div class="dash-item">
-                    <span class="dash-icon">👥</span>
+                    <span class="dash-icon">👤</span>
                     <div class="dash-number" id="dash-online">0</div>
-                    <div class="dash-label">เจ้าหน้าที่ออนไลน์</div>
+                    <div class="dash-label">ออนไลน์</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="loginSection" class="form-card mx-auto" style="max-width: 420px;">
-        <div class="card-header-custom">ลงชื่อเข้าใช้ระบบ (บันทึกข้อความ)</div>
+    <div id="loginSection" class="form-card mx-auto" style="max-width: 400px;">
+        <div class="card-header-custom">ลงชื่อเข้าใช้ระบบขอบันทึกข้อความ</div>
         <div class="card-body p-4 text-center">
-            <p class="small text-muted mb-4">ระบุหมายเลขโทรศัพท์เพื่อยืนยันตัวตน</p>
+            <p class="small text-muted mb-4">กรุณาระบุหมายเลขโทรศัพท์เพื่อเข้าสู่ระบบ</p>
             <div class="position-relative mb-3 text-start">
-                <input type="password" id="password" class="form-control text-center" style="letter-spacing: 3px; font-size: 1.2rem;" placeholder="08XXXXXXXX">
-                <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer; color: #94a3b8;">
+                <input type="password" id="password" class="form-control text-center" style="letter-spacing: 2px;" placeholder="08XXXXXXXX">
+                <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer; color: #cbd5e0;">
                     <i class="bi bi-eye"></i>
                 </span>
-                <div class="invalid-feedback text-center mt-2" id="password-feedback">รหัสผ่านไม่ถูกต้อง</div>
+                <div class="invalid-feedback text-center mt-2" id="password-feedback">กรุณากรอกรหัส</div>
             </div>
             <button class="btn btn-primary-custom w-100" id="btn-login" onclick="login()">เข้าสู่ระบบ</button>
             <div id="loginSpinner" class="d-none mt-3 text-primary">
-                <div class="spinner-border spinner-border-sm"></div> <small class="ms-2">ตรวจสอบสิทธิ์...</small>
+                <div class="spinner-border spinner-border-sm"></div> <small>กำลังตรวจสอบ...</small>
             </div>
         </div>
     </div>
 
     <div id="userform" class="form-card d-none">
         <div class="card-header-custom">แบบฟอร์มบันทึกข้อมูลขอเลขบันทึกข้อความ</div>
-        <div class="card-body p-4 p-md-5">
-            <div class="row g-4 text-start">
-                <div class="col-md-5">
-                    <label><i class="bi bi-calendar-event me-2"></i>วันที่บันทึก</label>
+        <div class="card-body p-4">
+            <div class="row g-3 text-start">
+                <div class="col-md-4">
+                    <label>วันที่</label>
                     <input type="date" id="birthday" class="form-control">
                 </div>
-                <div class="col-md-7">
-                    <label><i class="bi bi-person-badge me-2"></i>ผู้ขอเลข (เจ้าหน้าที่)</label>
-                    <input id="user" class="form-control bg-light fw-bold" disabled>
+                <div class="col-md-8">
+                    <label>ผู้บันทึก</label>
+                    <input id="user" class="form-control bg-light" disabled>
                 </div>
                 <div class="col-12">
-                    <label><i class="bi bi-chat-left-text me-2"></i>เรื่อง (หัวข้อบันทึกข้อความ)</label>
+                    <label>เรื่อง</label>
                     <textarea id="detail" class="form-control" rows="3" placeholder="ระบุรายละเอียดหัวข้อ..."></textarea>
                 </div>
                 <div class="col-12">
-                    <label><i class="bi bi-building me-2"></i>หน่วยงาน/ผู้ปฏิบัติ</label>
+                    <label>ผู้ปฏิบัติ</label>
                     <textarea id="department" class="form-control" rows="2" placeholder="ระบุกลุ่มงานหรือชื่อผู้ปฏิบัติ..."></textarea>
                 </div>
-                <div class="col-12 mt-5 text-center">
-                    <button class="btn btn-success-custom w-100" id="btn-submit" onclick="submitData()">
-                        <i class="bi bi-shield-check me-2"></i> ยืนยันขอเลขบันทึกข้อความ
+                <div class="col-12 mt-4 text-center">
+                    <button class="btn btn-success-custom w-100 py-3" id="btn-submit" onclick="submitData()">
+                        <i class="bi bi-file-earmark-check me-2"></i> รับเลขบันทึกข้อความ
                     </button>
                 </div>
             </div>
@@ -144,28 +147,28 @@
 </div>
 
 <footer>
-    <div>© 2569 ระบบสารบรรณอิเล็กทรอนิกส์ | โรงเรียนพิมานพิทยาสรรค์</div>
+    <div>© 2569 ระบบขอเลขบันทึกข้อความ | โรงเรียนพิมานพิทยาสรรค์</div>
 </footer>
 
 <div class="modal fade" id="resultModal" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4 text-center">
             <div id="modal-loading">
-                <div class="spinner-border text-primary mb-3" style="width: 3.5rem; height: 3.5rem;"></div>
-                <h5 class="fw-bold">กำลังบันทึกข้อมูล...</h5>
-                <p class="text-muted">ระบบกำลังประมวลผลเลขบันทึกข้อความถัดไป</p>
+                <div class="spinner-grow text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+                <h5>กำลังประมวลผล...</h5>
+                <p class="text-muted">โปรดรอสักครู่ ระบบกำลังออกเลขบันทึกข้อความ</p>
             </div>
             <div id="modal-success" class="d-none">
-                <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
-                <h4 class="fw-bold mt-3">ออกเลขสำเร็จ!</h4>
-                <div class="alert alert-primary my-4 py-4 fs-4 fw-bold shadow-sm" id="show-bookno" style="border-radius: 15px;"></div>
-                <button class="btn btn-primary w-100 py-3 rounded-4 fw-bold" onclick="resetToLogin()">กลับหน้าหลัก</button>
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                <h4 class="fw-bold mt-2">ออกเลขสำเร็จ!</h4>
+                <div class="alert alert-primary my-3 py-3 fs-5 fw-bold" id="show-bookno"></div>
+                <button class="btn btn-primary w-100 py-2 rounded-3" onclick="resetToLogin()">ตกลง</button>
             </div>
             <div id="modal-error" class="d-none">
-                <i class="bi bi-exclamation-octagon-fill text-danger" style="font-size: 5rem;"></i>
-                <h5 id="error-title" class="fw-bold mt-3">ขออภัย!</h5>
-                <p id="error-msg" class="text-muted"></p>
-                <button class="btn btn-secondary w-100 py-3 rounded-4" id="btn-close-error">รับทราบและลองใหม่</button>
+                <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 4rem;"></i>
+                <h5 id="error-title" class="mt-2">เกิดข้อผิดพลาด</h5>
+                <p id="error-msg"></p>
+                <button class="btn btn-secondary w-100" id="btn-close-error">ปิดและลองใหม่</button>
             </div>
         </div>
     </div>
@@ -212,7 +215,7 @@
             }
         }).catch(() => {
             loginSpinnerEl.classList.add("d-none");
-            Swal.fire('Error', 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้', 'error');
+            Swal.fire('Error', 'เกิดข้อผิดพลาดในการเชื่อมต่อ', 'error');
         });
     }
 
@@ -239,7 +242,7 @@
 
     function submitData() {
         if (!birthdayEl.value || !detailEl.value || !departmentEl.value) {
-            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณาระบุรายละเอียดให้ครบถ้วนก่อนส่งข้อมูลค่ะ', 'warning');
+            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลให้ครบถ้วนค่ะ', 'warning');
         }
 
         resultModal.show();
@@ -249,7 +252,7 @@
 
         post({ action:"checkOnline", name:userEl.value }).then(res => {
             if(res.expired) {
-                showSessionError("⏰ Session หมดอายุ", "กรุณาเข้าสู่ระบบใหม่อีกครั้ง");
+                showSessionError("⏰ ใช้เวลาเกิน 5 นาที", "กรุณาเข้าสู่ระบบใหม่");
                 return;
             }
 
@@ -262,9 +265,9 @@
             }).then(res => {
                 document.getElementById("modal-loading").classList.add("d-none");
                 if (res.error === "expired") {
-                    showSessionError("⏰ หมดเวลาเชื่อมต่อ", "ระบบตัดการทำงานอัตโนมัติเนื่องจากไม่มีการเคลื่อนไหว");
+                    showSessionError("⏰ หมดเวลาใช้งาน", "กรุณาเข้าสู่ระบบใหม่");
                 } else if (res.error === "queue") {
-                    showSessionError("⚠️ ระบบหน่วงเล็กน้อย", "มีผู้ใช้งานคนอื่นกำลังออกเลข กรุณาลองใหม่อีกครั้งใน 1-2 นาที");
+                    showSessionError("⚠️ ระบบไม่ว่าง", "จำกัดผู้ใช้งานครั้งละ 1 คน กรุณารอสักครู่");
                 } else {
                     document.getElementById("modal-success").classList.remove("d-none");
                     document.getElementById("show-bookno").innerText = `เลขบันทึกข้อความ = ${res.bookno}`;
@@ -292,7 +295,7 @@
     function checkSession() {
         if(!userEl.value || document.querySelector(".modal.show")) return;
         post({action:"checkOnline", name:userEl.value}).then(res => {
-            if(res.expired) showSessionError("⏰ หมดเวลาใช้งาน", "กรุณาลงชื่อเข้าใช้ใหม่อีกครั้ง");
+            if(res.expired) showSessionError("⏰ หมดเวลาใช้งาน", "กรุณาเข้าสู่ระบบใหม่");
         });
     }
 
