@@ -1,159 +1,311 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <title>ระบบขอเลขบันทึกข้อความ ปี 2569</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ระบบขอเลขบันทึกข้อความ - โรงเรียนพิมานพิทยาสรรค์</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root { 
+            /* โทนสี Slate Navy สำหรับบันทึกข้อความ */
+            --primary: #334155; 
+            --accent: #475569; 
+            --bg: #f8fafc; 
+            --main-gradient: linear-gradient(135deg, #1e293b, #334155);
+        }
+        
+        body { 
+            font-family: 'Prompt', sans-serif; 
+            background-color: var(--bg); 
+            color: #1e293b; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            background: #ffffff;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 15px 20px 10px 20px;
+            margin-bottom: 25px;
+        }
+        .school-logo { height: 55px; margin-bottom: 8px; }
+        .app-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 0; letter-spacing: 1px; }
+        .app-subtitle { font-size: 0.95rem; color: #64748b; font-weight: 600; margin-top: 2px; }
+
+        .dash-card { border: none; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: white; border: 1px solid rgba(0,0,0,0.03); }
+        .dashboard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .dash-item { text-align: center; padding: 15px; border-right: 1px solid #f1f5f9; }
+        .dash-item:last-child { border-right: none; }
+        .dash-icon { font-size: 1.8rem; display: block; margin-bottom: 5px; filter: grayscale(0.2); }
+        .dash-number { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+        .dash-label { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
+
+        .max-width-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .form-card { border: none; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); background: white; overflow: hidden; }
+        .card-header-custom { background: var(--main-gradient); color: white; padding: 20px; font-weight: 600; text-align: center; font-size: 1.1rem; }
+        .form-control, .form-select { border-radius: 14px; padding: 14px; border: 2px solid #f1f5f9; background: #f8fafc; transition: 0.2s; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(51, 65, 85, 0.1); background: #fff; }
+        label { font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #334155; display: block; }
+
+        .btn-primary-custom { background: var(--primary); border: none; border-radius: 14px; padding: 14px; font-weight: 600; transition: 0.3s; color: white; }
+        .btn-primary-custom:hover { background: #0f172a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .btn-success-custom { background: #059669; border: none; border-radius: 14px; padding: 18px; color: white; font-weight: 600; transition: 0.3s; font-size: 1.1rem; }
+        .btn-success-custom:hover { background: #047857; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.2); }
+
+        .modal-content { border-radius: 30px; border: none; }
+        footer { margin-top: auto; padding: 25px; text-align: center; font-size: 0.85rem; color: #64748b; font-weight: 500; }
+    </style>
 </head>
-
 <body>
 
-<!-- Banner -->
-<div class="banner-wrapper">
-  <img src="https://raw.githubusercontent.com/joodami/school-assets/main/banner0369.jpg"
-     class="banner-img"
-     alt="banner">
+<header class="app-header">
+    <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
+    <h1 class="app-title">PS-Memo</h1>
+    <p class="app-subtitle">ระบบขอเลขบันทึกข้อความ | โรงเรียนพิมานพิทยาสรรค์</p>
+</header>
+
+<div class="container max-width-container pb-5">
+    <div class="card dash-card mb-4">
+        <div class="card-body">
+            <div class="dashboard-row">
+                <div class="dash-item">
+                    <span class="dash-icon">📈</span>
+                    <div class="dash-number" id="dash-total">0</div>
+                    <div class="dash-label">สรุปยอดรวม</div>
+                </div>
+                <div class="dash-item">
+                    <span class="dash-icon">📝</span>
+                    <div class="dash-number" id="dash-today">0</div>
+                    <div class="dash-label">รายการวันนี้</div>
+                </div>
+                <div class="dash-item">
+                    <span class="dash-icon">👥</span>
+                    <div class="dash-number" id="dash-online">0</div>
+                    <div class="dash-label">เจ้าหน้าที่ออนไลน์</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginSection" class="form-card mx-auto" style="max-width: 420px;">
+        <div class="card-header-custom">ลงชื่อเข้าใช้ระบบ (บันทึกข้อความ)</div>
+        <div class="card-body p-4 text-center">
+            <p class="small text-muted mb-4">ระบุหมายเลขโทรศัพท์เพื่อยืนยันตัวตน</p>
+            <div class="position-relative mb-3 text-start">
+                <input type="password" id="password" class="form-control text-center" style="letter-spacing: 3px; font-size: 1.2rem;" placeholder="08XXXXXXXX">
+                <span id="togglePassword" class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer; color: #94a3b8;">
+                    <i class="bi bi-eye"></i>
+                </span>
+                <div class="invalid-feedback text-center mt-2" id="password-feedback">รหัสผ่านไม่ถูกต้อง</div>
+            </div>
+            <button class="btn btn-primary-custom w-100" id="btn-login" onclick="login()">เข้าสู่ระบบ</button>
+            <div id="loginSpinner" class="d-none mt-3 text-primary">
+                <div class="spinner-border spinner-border-sm"></div> <small class="ms-2">ตรวจสอบสิทธิ์...</small>
+            </div>
+        </div>
+    </div>
+
+    <div id="userform" class="form-card d-none">
+        <div class="card-header-custom">แบบฟอร์มบันทึกข้อมูลขอเลขบันทึกข้อความ</div>
+        <div class="card-body p-4 p-md-5">
+            <div class="row g-4 text-start">
+                <div class="col-md-5">
+                    <label><i class="bi bi-calendar-event me-2"></i>วันที่บันทึก</label>
+                    <input type="date" id="birthday" class="form-control">
+                </div>
+                <div class="col-md-7">
+                    <label><i class="bi bi-person-badge me-2"></i>ผู้ขอเลข (เจ้าหน้าที่)</label>
+                    <input id="user" class="form-control bg-light fw-bold" disabled>
+                </div>
+                <div class="col-12">
+                    <label><i class="bi bi-chat-left-text me-2"></i>เรื่อง (หัวข้อบันทึกข้อความ)</label>
+                    <textarea id="detail" class="form-control" rows="3" placeholder="ระบุรายละเอียดหัวข้อ..."></textarea>
+                </div>
+                <div class="col-12">
+                    <label><i class="bi bi-building me-2"></i>หน่วยงาน/ผู้ปฏิบัติ</label>
+                    <textarea id="department" class="form-control" rows="2" placeholder="ระบุกลุ่มงานหรือชื่อผู้ปฏิบัติ..."></textarea>
+                </div>
+                <div class="col-12 mt-5 text-center">
+                    <button class="btn btn-success-custom w-100" id="btn-submit" onclick="submitData()">
+                        <i class="bi bi-shield-check me-2"></i> ยืนยันขอเลขบันทึกข้อความ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Container -->
-<div class="container-fluid px-2 px-md-4 text-center max-width-container">
-
-  <!-- Dashboard -->
-  <div class="card shadow-sm rounded-4 mb-4">
-    <div class="card-body">
-      <div class="dashboard-row">
-        <div class="dash-item">
-          <span class="dash-icon">📊</span>
-          <div class="dash-text">
-            <small>ทั้งหมด</small>
-            <div class="dash-number" id="dash-total">0</div>
-          </div>
-        </div>
-        <div class="dash-item">
-          <span class="dash-icon">📅</span>
-          <div class="dash-text">
-            <small>วันนี้</small>
-            <div class="dash-number" id="dash-today">0</div>
-          </div>
-        </div>
-        <div class="dash-item">
-          <span class="dash-icon">👤</span>
-          <div class="dash-text">
-            <small>ออนไลน์</small>
-            <div class="dash-number" id="dash-online">0</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Login -->
-  <div class="card form-card shadow-sm rounded-4">
-    <div class="card-header fw-bold">ลงชื่อเข้าใช้ระบบขอเลขบันทึกข้อความ</div>
-    <div class="card-body">
-      <div class="mb-3 position-relative">
-        <input type="password" id="password" class="form-control" placeholder="กรอกหมายเลขโทรศัพท์">
-        <span id="togglePassword"
-              class="position-absolute top-50 end-0 translate-middle-y me-3"
-              style="cursor:pointer;">
-          <i class="bi bi-eye"></i>
-        </span>
-        <div class="invalid-feedback" id="password-feedback">กรุณากรอกรหัส</div>
-      </div>
-
-      <button class="btn btn-primary w-100" id="btn-login">เข้าสู่ระบบ</button>
-
-      <div id="loginSpinner" class="d-none text-center mt-3">
-        <div class="spinner-border text-primary"></div>
-        <p class="small mt-2">กำลังเข้าสู่ระบบ...</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- User Form -->
-  <div id="userform" class="card form-card shadow-sm rounded-4 mt-4 d-none">
-    <div class="card-header fw-bold">บันทึกข้อมูล</div>
-    <div class="card-body text-start">
-
-      <div class="mb-3">
-        <label>วันที่</label>
-        <input type="date" id="birthday" class="form-control">
-      </div>
-
-      <div class="mb-3">
-        <label>เรื่อง</label>
-        <textarea id="detail" class="form-control"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label>ผู้ปฏิบัติ</label>
-        <textarea id="department" class="form-control"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label>ผู้บันทึก</label>
-        <input id="user" class="form-control" disabled>
-      </div>
-
-      <button type="button" class="btn btn-success w-100" id="btn-submit">
-        รับเลขบันทึกข้อความ
-      </button>
-
-    </div>
-  </div>
-
-</div>
-
-<!-- Footer -->
-<footer id="main-footer">
-  <small>© 2569 ระบบขอเลขบันทึกข้อความ | พัฒนาโดยงานสารบรรณโรงเรียน</small>
+<footer>
+    <div>© 2569 ระบบสารบรรณอิเล็กทรอนิกส์ | โรงเรียนพิมานพิทยาสรรค์</div>
 </footer>
 
-<!-- ===== Modal ===== -->
-<div class="modal fade" id="resultModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-
-      <!-- Loading -->
-      <div id="modal-loading">
-        <i class="bi bi-hourglass-split modal-icon text-primary"></i>
-        <p class="mt-3">
-          กำลังออกเลขบันทึกข้อความ<br>
-          โปรดรอ...
-        </p>
-      </div>
-
-      <!-- Success -->
-      <div id="modal-success" class="d-none">
-        <i class="bi bi-check-circle-fill modal-icon text-success"></i>
-        <h5 class="mt-3">ออกเลขสำเร็จ</h5>
-        <p id="show-bookno" class="fw-bold"></p>
-        <button class="btn btn-primary mt-2" data-bs-dismiss="modal">
-          ปิด
-        </button>
-      </div>
-
-      <!-- Error -->
-      <div id="modal-error" class="d-none">
-        <i class="bi bi-x-circle-fill modal-icon text-danger"></i>
-        <h5 class="mt-3">เกิดข้อผิดพลาด</h5>
-        <p></p>
-        <button class="btn btn-secondary mt-2">
-          ปิด
-        </button>
-      </div>
-
+<div class="modal fade" id="resultModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 text-center">
+            <div id="modal-loading">
+                <div class="spinner-border text-primary mb-3" style="width: 3.5rem; height: 3.5rem;"></div>
+                <h5 class="fw-bold">กำลังบันทึกข้อมูล...</h5>
+                <p class="text-muted">ระบบกำลังประมวลผลเลขบันทึกข้อความถัดไป</p>
+            </div>
+            <div id="modal-success" class="d-none">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                <h4 class="fw-bold mt-3">ออกเลขสำเร็จ!</h4>
+                <div class="alert alert-primary my-4 py-4 fs-4 fw-bold shadow-sm" id="show-bookno" style="border-radius: 15px;"></div>
+                <button class="btn btn-primary w-100 py-3 rounded-4 fw-bold" onclick="resetToLogin()">กลับหน้าหลัก</button>
+            </div>
+            <div id="modal-error" class="d-none">
+                <i class="bi bi-exclamation-octagon-fill text-danger" style="font-size: 5rem;"></i>
+                <h5 id="error-title" class="fw-bold mt-3">ขออภัย!</h5>
+                <p id="error-msg" class="text-muted"></p>
+                <button class="btn btn-secondary w-100 py-3 rounded-4" id="btn-close-error">รับทราบและลองใหม่</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="script.js?v=123"></script>
+<script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyEowpOwE3575Vm0POz3p_nJysTfU6G10BDFIOGXDOy42G-aX-xFlHHb5d3TU1cAhNEdw/exec";
+    
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    const passwordEl = document.getElementById("password");
+    const loginSection = document.getElementById("loginSection");
+    const userformEl = document.getElementById("userform");
+    const userEl = document.getElementById("user");
+    const birthdayEl = document.getElementById("birthday");
+    const detailEl = document.getElementById("detail");
+    const departmentEl = document.getElementById("department");
+    const loginSpinnerEl = document.getElementById("loginSpinner");
+
+    async function post(data) {
+        const response = await fetch(GAS_URL, { method: "POST", body: new URLSearchParams(data) });
+        return response.json();
+    }
+
+    function login() {
+        const pass = passwordEl.value.trim();
+        if(!pass) {
+            passwordEl.classList.add("is-invalid");
+            return;
+        }
+        passwordEl.classList.remove("is-invalid");
+        loginSpinnerEl.classList.remove("d-none");
+
+        post({action:"login", password:pass}).then(res => {
+            loginSpinnerEl.classList.add("d-none");
+            if (res.length) {
+                userEl.value = res[0][1];
+                loginSection.classList.add("d-none");
+                userformEl.classList.remove("d-none");
+                post({action:"addOnline", name:res[0][1]});
+            } else {
+                passwordEl.classList.add("is-invalid");
+                document.getElementById("password-feedback").innerText = "รหัสผ่านไม่ถูกต้อง";
+            }
+        }).catch(() => {
+            loginSpinnerEl.classList.add("d-none");
+            Swal.fire('Error', 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้', 'error');
+        });
+    }
+
+    document.getElementById("togglePassword").onclick = function() {
+        const type = passwordEl.type === "password" ? "text" : "password";
+        passwordEl.type = type;
+        this.querySelector("i").classList.toggle("bi-eye");
+        this.querySelector("i").classList.toggle("bi-eye-slash");
+    };
+
+    passwordEl.addEventListener("keydown", (e) => { if (e.key === "Enter") login(); });
+
+    function resetToLogin() {
+        resultModal.hide();
+        detailEl.value = "";
+        departmentEl.value = "";
+        passwordEl.value = "";
+        if(userEl.value) post({action:"deleteOnline", name:userEl.value});
+        userformEl.classList.add("d-none");
+        loginSection.classList.remove("d-none");
+        userEl.value = "";
+        birthdayEl.valueAsDate = new Date();
+    }
+
+    function submitData() {
+        if (!birthdayEl.value || !detailEl.value || !departmentEl.value) {
+            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณาระบุรายละเอียดให้ครบถ้วนก่อนส่งข้อมูลค่ะ', 'warning');
+        }
+
+        resultModal.show();
+        document.getElementById("modal-loading").classList.remove("d-none");
+        document.getElementById("modal-success").classList.add("d-none");
+        document.getElementById("modal-error").classList.add("d-none");
+
+        post({ action:"checkOnline", name:userEl.value }).then(res => {
+            if(res.expired) {
+                showSessionError("⏰ Session หมดอายุ", "กรุณาเข้าสู่ระบบใหม่อีกครั้ง");
+                return;
+            }
+
+            post({
+                action:"addRecord",
+                birthday: birthdayEl.value,
+                detail: detailEl.value,
+                department: departmentEl.value,
+                user: userEl.value
+            }).then(res => {
+                document.getElementById("modal-loading").classList.add("d-none");
+                if (res.error === "expired") {
+                    showSessionError("⏰ หมดเวลาเชื่อมต่อ", "ระบบตัดการทำงานอัตโนมัติเนื่องจากไม่มีการเคลื่อนไหว");
+                } else if (res.error === "queue") {
+                    showSessionError("⚠️ ระบบหน่วงเล็กน้อย", "มีผู้ใช้งานคนอื่นกำลังออกเลข กรุณาลองใหม่อีกครั้งใน 1-2 นาที");
+                } else {
+                    document.getElementById("modal-success").classList.remove("d-none");
+                    document.getElementById("show-bookno").innerText = `เลขบันทึกข้อความ = ${res.bookno}`;
+                }
+            });
+        });
+    }
+
+    function showSessionError(title, msg) {
+        document.getElementById("modal-loading").classList.add("d-none");
+        document.getElementById("modal-error").classList.remove("d-none");
+        document.getElementById("error-title").innerText = title;
+        document.getElementById("error-msg").innerText = msg;
+        document.getElementById("btn-close-error").onclick = resetToLogin;
+    }
+
+    function loadDashboard() {
+        post({action:"dashboard"}).then(d => {
+            document.getElementById("dash-total").innerText = d.total;
+            document.getElementById("dash-today").innerText = d.today;
+            document.getElementById("dash-online").innerText = d.online;
+        });
+    }
+
+    function checkSession() {
+        if(!userEl.value || document.querySelector(".modal.show")) return;
+        post({action:"checkOnline", name:userEl.value}).then(res => {
+            if(res.expired) showSessionError("⏰ หมดเวลาใช้งาน", "กรุณาลงชื่อเข้าใช้ใหม่อีกครั้ง");
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadDashboard();
+        setInterval(loadDashboard, 30000);
+        setInterval(checkSession, 10000);
+        birthdayEl.valueAsDate = new Date();
+    });
+
+    window.addEventListener("beforeunload", () => {
+        if (userEl.value) navigator.sendBeacon(GAS_URL, new URLSearchParams({ action: "deleteOnline", name: userEl.value }));
+    });
+</script>
 </body>
 </html>
